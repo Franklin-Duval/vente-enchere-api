@@ -5,14 +5,16 @@ const connection = require('./database/dbConnection');
 var userRoutes = require('./routes/users');
 
 const app = express();
+const port = 3001;
+
 app.use(express.json());
 app.use(cors());
-const port = 3001;
 
 // connection do mongo database
 connection();
 
-app.use('/lands', userRoutes);
+
+app.use('/api/users', userRoutes);
 
 app.listen(port, () => {
   console.log(`API listening at http://localhost:${port}`);

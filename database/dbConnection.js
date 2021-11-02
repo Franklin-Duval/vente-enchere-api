@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const dbName = 'kmt_sarl';
+const dbName = 'vente_enchere_api';
 const dbUrl = 'mongodb://localhost:27017/';
 
 module.exports = async function connection() {
