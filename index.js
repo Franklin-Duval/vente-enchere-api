@@ -5,6 +5,9 @@ const connection = require('./database/dbConnection');
 
 var userRoutes = require('./routes/usersRoutes');
 var imageRoutes = require('./routes/imagesRoutes');
+var categorieRoutes = require('./routes/categorieRoutes');
+var lotRoutes = require('./routes/lotRoutes');
+var produitRoutes = require('./routes/produitRoutes');
 
 const app = express();
 
@@ -16,6 +19,9 @@ connection();
 
 app.use('/api/users', userRoutes);
 app.use('/api/images', imageRoutes);
+app.use('/api/categories', categorieRoutes);
+app.use('/api/lots', lotRoutes);
+app.use('/api/produits', produitRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`API listening at http://localhost:${process.env.PORT}`);
