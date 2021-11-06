@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-const dbName = 'vente_enchere_api';
-const dbUrl = 'mongodb://localhost:27017/';
+const dbName = process.env.DB_NAME;
+const dbUrl = process.env.DB_URL;
 
 module.exports = async function connection() {
+  console.log(dbUrl);
   try {
     await mongoose.connect(dbUrl, {
       dbName: dbName,
