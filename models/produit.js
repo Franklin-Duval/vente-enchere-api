@@ -14,7 +14,7 @@ const ProduitSchema = new Schema({
   },
   prixMin: {
     type: String,
-    required: true,
+    required: false,
   },
   vendeur: {
     type: Schema.Types.ObjectId,
@@ -39,7 +39,6 @@ const ProduitSchema = new Schema({
   },
   dateCreation: {
     type: Date,
-    required: true,
     default: Date.now(),
   },
   dateModification: {

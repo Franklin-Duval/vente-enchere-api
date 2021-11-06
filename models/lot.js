@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const LotSchema = new Schema({
   prixFinalVente: {
     type: String,
-    required: true,
+    required: false,
   },
   statut: {
     type: String,
@@ -18,12 +18,11 @@ const LotSchema = new Schema({
   },
   nonVendu: {
     type: Boolean,
-    required: true,
+    required: false,
   },
   dateMiseEnchere: {
     type: Date,
-    required: true,
-    default: Date.now(),
+    required: false,
   },
   produits: [
     {
@@ -42,11 +41,9 @@ const LotSchema = new Schema({
   dateRefus: {
     type: Date,
     required: false,
-    default: Date.now(),
   },
   dateCreation: {
     type: Date,
-    required: true,
     default: Date.now(),
   },
   dateModification: {
@@ -57,7 +54,6 @@ const LotSchema = new Schema({
   dateSuppression: {
     type: Date,
     required: false,
-    default: Date.now(),
   },
 });
 
