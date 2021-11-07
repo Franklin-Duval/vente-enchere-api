@@ -14,7 +14,7 @@ var commissairePrisseurRoutes = require('./routes/commissairePriseurRoutes');
 var gerantRoutes = require('./routes/gerantRoutes');
 var vendeurRoutes = require('./routes/vendeurRoutes');
 var authRoutes = require('./routes/authRoutes');
-let local = require('./strategies/local');
+let localStrategy = require('./strategies/local');
 
 const app = express();
 
@@ -25,7 +25,6 @@ app.use(cors());
 connection();
 
 app.use(passport.initialize());
-app.use(passport.session());
 
 app.use('/api/users', userRoutes);
 app.use('/api/images', imageRoutes);
