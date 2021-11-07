@@ -1,10 +1,18 @@
-const LocalStrategy = require('passport-local');
+const LocalStrategy = require('passport-local').Strategy;
 const passport = require('passport');
 
 passport.use(
-  new LocalStrategy(async (username, password, done) => {
-    console.log(username, password);
-    const result = { name: 'Talom', email: 'franklifrost@gmail.com' };
-    return done(null, result);
-  }),
+  new LocalStrategy(
+    { usernameField: 'email', passwordField: 'password' },
+    async (email, password, done) => {
+      console.log(email, password);
+      const result = {
+        _id: 'd2e552fa121',
+        name: 'Talom',
+        email: 'franklifrost@gmail.com',
+        adresse: 'Douala',
+      };
+      return done(null, result);
+    },
+  ),
 );
