@@ -50,7 +50,7 @@ const ClientSchema = new Schema({
   },
   nombreProduitsAchetes: {
     type: Number,
-    required: true,
+    required: false,
     default: 0,
   },
   totalArgentDepense: {
