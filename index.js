@@ -6,9 +6,9 @@ const connection = require('./database/dbConnection');
 
 var userRoutes = require('./routes/usersRoutes');
 var imageRoutes = require('./routes/imagesRoutes');
-var categorieRoutes = require('./routes/categorieRoutes');
-var lotRoutes = require('./routes/lotRoutes');
-var produitRoutes = require('./routes/produitRoutes');
+var categorieRoutes = require('./routes/gestionProduit/categorieRoutes');
+var lotRoutes = require('./routes/gestionProduit/lotRoutes');
+var produitRoutes = require('./routes/gestionProduit/produitRoutes');
 
 var clientRoutes = require('./routes/gestionCompte/clientRoutes');
 var commissairePrisseurRoutes = require('./routes/gestionCompte/commissaireRoutes');

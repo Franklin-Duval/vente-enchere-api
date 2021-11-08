@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const imageMiddleware = require('../middlewares/imageMiddleware');
+const imageMiddleware = require('../../middlewares/imageMiddleware');
 
-const produitCtrl = require('../controllers/produitController');
+const produitCtrl = require('../../controllers/gestionProduit/produitController');
 
 router.get('/', produitCtrl.getAllProduit);
 router.post('/', imageMiddleware, produitCtrl.createProduit);
