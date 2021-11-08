@@ -55,7 +55,7 @@ const ClientSchema = new Schema({
   },
   totalArgentDepense: {
     type: Number,
-    required: true,
+    required: false,
     default: 0,
   },
   dateAjout: {
