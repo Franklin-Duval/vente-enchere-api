@@ -60,7 +60,6 @@ const ClientSchema = new Schema({
   },
   dateAjout: {
     type: Date,
-    required: true,
     default: Date.now(),
   },
 });
