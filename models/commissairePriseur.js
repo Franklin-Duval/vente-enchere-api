@@ -42,7 +42,7 @@ const CommissairePriseurSchema = new Schema({
   },
   nombreEnchereOrganisee: {
     type: Number,
-    required: true,
+    required: false,
     default: 0,
   },
   dateAjout: {
