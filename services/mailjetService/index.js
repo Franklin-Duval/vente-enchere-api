@@ -6,10 +6,7 @@ const mailJet = connect(
 );
 
 class MailJetService {
-  sendValidationEmail = (
-    receiver: { Email: string; Name: string },
-    activationLink: string,
-  ) => {
+  sendValidationEmail = (receiver, activationLink) => {
     return this.sendMailWithTemplateId(
       undefined,
       [receiver],
@@ -24,9 +21,9 @@ class MailJetService {
       Email: 'franklinfrost14@gmail.com',
       Name: 'AGRIC AUCTIONS - E-COM',
     },
-    receivers: { Email: string; Name: string }[],
-    templateID: number,
-    subject: string,
+    receivers,
+    templateID,
+    subject,
     variables = {},
   ) {
     const request = mailJet.post('send', { version: 'v3.1' }).request({
