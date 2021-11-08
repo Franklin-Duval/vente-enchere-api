@@ -51,10 +51,12 @@ const ClientSchema = new Schema({
   nombreProduitsAchetes: {
     type: Number,
     required: true,
+    default: 0,
   },
   totalArgentDepense: {
     type: Number,
     required: true,
+    default: 0,
   },
   dateAjout: {
     type: Date,
