@@ -1,12 +1,12 @@
-const CommissairePrisseur = require('../models/commissairePrisseur');
+const CommissairePriseur = require('../models/commissairePriseur');
 
-exports.getAllCommissairePrisseur = (req, res, next) => {
-  CommissairePrisseur.find({})
-    .then((commissairePrisseurs) => {
+exports.getAllCommissairePriseur = (req, res, next) => {
+  CommissairePriseur.find({})
+    .then((commissairePriseurs) => {
       res.status(200).json({
         success: true,
         message: 'Les commissaires priseur ont été récuppérés avec succès',
-        result: commissairePrisseurs,
+        result: commissairePriseurs,
       });
     })
     .catch((error) => {
@@ -19,13 +19,13 @@ exports.getAllCommissairePrisseur = (req, res, next) => {
     });
 };
 
-exports.getOneCommissairePrisseur = (req, res, next) => {
-  CommissairePrisseur.findOne({ _id: req.params.id })
-    .then((commissairePrisseur) => {
+exports.getOneCommissairePriseur = (req, res, next) => {
+  CommissairePriseur.findOne({ _id: req.params.id })
+    .then((commissairePriseur) => {
       res.status(200).json({
         success: true,
         message: 'Le commissaire priseur a été récuppéré avec succès',
-        result: commissairePrisseur,
+        result: commissairePriseur,
       });
     })
     .catch((error) => {
@@ -38,7 +38,7 @@ exports.getOneCommissairePrisseur = (req, res, next) => {
     });
 };
 
-exports.createCommissairePrisseur = (req, res, next) => {
+exports.createCommissairePriseur = (req, res, next) => {
   const {
     nom,
     prenom,
@@ -52,7 +52,7 @@ exports.createCommissairePrisseur = (req, res, next) => {
     nombreEnchereOrganisee,
     dateAjout,
   } = req.body;
-  const commissairePrisseur = new CommissairePrisseur({
+  const commissairePriseur = new CommissairePriseur({
     nom,
     prenom,
     adresse,
@@ -66,13 +66,13 @@ exports.createCommissairePrisseur = (req, res, next) => {
     dateAjout,
   });
 
-  commissairePrisseur
+  commissairePriseur
     .save()
     .then(() => {
       res.status(201).json({
         success: true,
         message: 'Le commissaire priseur a été enregistré avec succès',
-        result: commissairePrisseur,
+        result: commissairePriseur,
       });
     })
     .catch((error) => {
@@ -85,8 +85,8 @@ exports.createCommissairePrisseur = (req, res, next) => {
     });
 };
 
-exports.updateOneCommissairePrisseur = (req, res, next) => {
-  const commissairePrisseur = new CommissairePrisseur({
+exports.updateOneCommissairePriseur = (req, res, next) => {
+  const commissairePriseur = new CommissairePriseur({
     _id: req.params.id,
     nom: req.body.nom,
     prenom: req.body.prenom,
@@ -101,12 +101,12 @@ exports.updateOneCommissairePrisseur = (req, res, next) => {
     dateAjout: req.body.dateAjout,
   });
 
-  CommissairePrisseur.updateOne({ _id: req.params.id }, commissairePrisseur)
+  CommissairePriseur.updateOne({ _id: req.params.id }, commissairePriseur)
     .then(() => {
       res.status(200).json({
         success: true,
         message: 'Le commissaire priseur a été modifié avec succès',
-        result: commissairePrisseur,
+        result: commissairePriseur,
       });
     })
     .catch((error) => {
@@ -119,8 +119,8 @@ exports.updateOneCommissairePrisseur = (req, res, next) => {
     });
 };
 
-exports.deleteOneCommissairePrisseur = (req, res, next) => {
-  CommissairePrisseur.deleteOne({ _id: req.params.id })
+exports.deleteOneCommissairePriseur = (req, res, next) => {
+  CommissairePriseur.deleteOne({ _id: req.params.id })
     .then(() => {
       res.status(200).json({
         success: true,

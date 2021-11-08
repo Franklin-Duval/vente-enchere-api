@@ -3,7 +3,7 @@ const COLLECTIONS = require('../database/collections');
 
 const Schema = mongoose.Schema;
 
-const CommissairePrisseurSchema = new Schema({
+const CommissairePriseurSchema = new Schema({
   nom: {
     type: String,
     required: true,
@@ -52,9 +52,9 @@ const CommissairePrisseurSchema = new Schema({
   },
 });
 
-const CommissairePrisseur = mongoose.model(
+const CommissairePriseur = mongoose.model(
   COLLECTIONS.COMMISSAIREPRISEUR,
-  CommissairePrisseurSchema,
+  CommissairePriseurSchema,
 );
 
-module.exports = CommissairePrisseur;
+module.exports = CommissairePriseur;
