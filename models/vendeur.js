@@ -12,17 +12,19 @@ const VendeurSchema = new Schema({
     type: String,
     required: true,
   },
-  adresse: {
-    type: String,
-    required: true,
-  },
-  pays: {
-    type: String,
-    required: true,
-  },
-  ville: {
-    type: String,
-    required: true,
+  localisation: {
+    adresse: {
+      type: String,
+      required: true,
+    },
+    pays: {
+      type: String,
+      required: true,
+    },
+    ville: {
+      type: String,
+      required: true,
+    },
   },
   email: {
     type: String,
