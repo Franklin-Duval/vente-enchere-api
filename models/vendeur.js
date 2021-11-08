@@ -55,10 +55,12 @@ const VendeurSchema = new Schema({
   chiffreAffaire: {
     type: Number,
     required: true,
+    default: 0,
   },
   nombreLotsVendu: {
     type: Number,
     required: true,
+    default: 0,
   },
   gerant: {
     type: Schema.Types.ObjectId,
