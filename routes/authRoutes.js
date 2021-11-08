@@ -14,7 +14,7 @@ router.post('/signin', async (req, res, next) => {
 
       req.login(user, { session: false }, async (error) => {
         if (error) return next(error);
-        const token = jwt.sign({ user }, 'TOP_SECRET', { expiresIn: '1d' });
+        const token = jwt.sign({ user }, 'TOP_SECRET', { expiresIn: '1d' }); // token expiration of 1 day
 
         return res.json({ user, token });
       });

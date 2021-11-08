@@ -58,12 +58,12 @@ passport.use(
   ),
 );
 
-// vérifie l'authenticité du token fournir. utilisé comme middleware
+// verify the authenticity of a token: used as a middleware
 passport.use(
   new JWTstrategy(
     {
       secretOrKey: 'TOP_SECRET',
-      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(), // on récupère le token du 'Bearer Token' dans le header
+      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(), // gets the token from 'Bearer Token' field  in request header
     },
     async (token, done) => {
       try {

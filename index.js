@@ -14,7 +14,7 @@ var commissairePrisseurRoutes = require('./routes/commissairePriseurRoutes');
 var gerantRoutes = require('./routes/gerantRoutes');
 var vendeurRoutes = require('./routes/vendeurRoutes');
 var authRoutes = require('./routes/authRoutes');
-let localStrategy = require('./strategies/local');
+require('./strategies/local');
 
 const app = express();
 
@@ -25,6 +25,11 @@ app.use(cors());
 connection();
 
 app.use(passport.initialize());
+
+app.use('/api/auth', authRoutes);
+
+//  auth middleware: All routes below are protected
+app.use(passport.authenticate('jwt', { session: false }));
 
 app.use('/api/users', userRoutes);
 app.use('/api/images', imageRoutes);
