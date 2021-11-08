@@ -61,7 +61,7 @@ const VendeurSchema = new Schema({
   },
   nombreLotsVendu: {
     type: Number,
-    required: true,
+    required: false,
     default: 0,
   },
   gerant: {
