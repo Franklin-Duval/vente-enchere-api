@@ -52,7 +52,7 @@ exports.createClient = (req, res, next) => {
     numeroCompte,
     numeroMomo,
     nombreProduitsAchetes,
-    total_argent_depense,
+    totalArgentDepense,
     dateAjout,
   } = req.body;
   const client = new Client({
@@ -68,7 +68,7 @@ exports.createClient = (req, res, next) => {
     numeroCompte,
     numeroMomo,
     nombreProduitsAchetes,
-    total_argent_depense,
+    totalArgentDepense,
     dateAjout,
   });
 
