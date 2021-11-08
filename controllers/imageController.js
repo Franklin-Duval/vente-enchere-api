@@ -1,4 +1,4 @@
-const GridFSService = require('../services/gridfsServices');
+const GridFSService = require('../services/gridfsService');
 
 exports.getOneImage = async (req, res) => {
   let imageId = req.params.id;

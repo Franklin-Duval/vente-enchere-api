@@ -1,5 +1,5 @@
 const multer = require('multer');
-const GridFSService = require('../services/gridfsServices');
+const GridFSService = require('../services/gridfsService');
 const express = require('express');
 
 const router = express.Router();
