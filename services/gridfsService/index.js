@@ -15,8 +15,7 @@ class GridFSService {
   };
 
   getFile = async (fileId) => {
-    const db = await conn();
-    const bucket = new mongoose.mongo.GridFSBucket(db);
+    const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db);
     const downStream = bucket.openDownloadStream(
       new mongoose.mongo.ObjectId(fileId),
     );
@@ -24,8 +23,7 @@ class GridFSService {
   };
 
   deleteFile = async (fileId) => {
-    const db = await conn();
-    const bucket = new mongoose.mongo.GridFSBucket(db);
+    const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db);
     return await bucket.delete(new mongoose.mongo.ObjectId(fileId));
   };
 }
