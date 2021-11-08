@@ -40,19 +40,19 @@ const ClientSchema = new Schema({
     type: String,
     required: true,
   },
-  numero_compte: {
+  numeroCompte: {
     type: String,
     required: true,
   },
-  numero_momo: {
+  numeroMomo: {
     type: String,
     required: true,
   },
-  nombre_produits_achetes: {
+  nombreProduitsAchetes: {
     type: Number,
     required: true,
   },
-  total_argent_depense: {
+  totalArgentDepense: {
     type: Number,
     required: true,
   },
