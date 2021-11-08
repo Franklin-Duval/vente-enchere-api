@@ -27,6 +27,7 @@ const GerantSchema = new Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   telephone: {
     type: String,
