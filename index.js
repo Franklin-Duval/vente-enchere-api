@@ -4,7 +4,6 @@ const passport = require('passport');
 require('dotenv').config();
 const connection = require('./database/dbConnection');
 
-var userRoutes = require('./routes/usersRoutes');
 var imageRoutes = require('./routes/imagesRoutes');
 var categorieRoutes = require('./routes/gestionProduit/categorieRoutes');
 var lotRoutes = require('./routes/gestionProduit/lotRoutes');
@@ -33,7 +32,6 @@ app.use('/api/auth', authRoutes);
 //  auth middleware: All routes below are protected
 app.use(passport.authenticate('jwt', { session: false }));
 
-app.use('/api/users', userRoutes);
 app.use('/api/images', imageRoutes);
 app.use('/api/categories', categorieRoutes);
 app.use('/api/lots', lotRoutes);
