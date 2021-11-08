@@ -5,7 +5,7 @@ exports.getAllClient = (req, res, next) => {
     .then((clients) => {
       res.status(200).json({
         success: true,
-        message: 'Les utilisateurs ont été récuppérés avec succès',
+        message: 'Les clients ont été récuppérés avec succès',
         result: clients,
       });
     })
@@ -24,7 +24,7 @@ exports.getOneClient = (req, res, next) => {
     .then((client) => {
       res.status(200).json({
         success: true,
-        message: "L'utilisateur a été récuppéré avec succès",
+        message: 'Le client a été récuppéré avec succès',
         result: client,
       });
     })
@@ -77,7 +77,7 @@ exports.createClient = (req, res, next) => {
     .then(() => {
       res.status(201).json({
         success: true,
-        message: "L'utilisateur a été enregistré avec succès",
+        message: 'Le client a été enregistré avec succès',
         result: client,
       });
     })
@@ -97,16 +97,16 @@ exports.updateOneClient = (req, res, next) => {
     nom: req.body.nom,
     prenom: req.body.prenom,
     adresse: req.body.adresse,
-    pays: req.params.pays,
-    ville: req.params.ville,
-    email: req.params.email,
+    pays: req.body.pays,
+    ville: req.body.ville,
+    email: req.body.email,
     telephone: req.body.telephone,
-    pseudo: req.params.pseudo,
-    password: req.params.password,
-    numeroCompte: req.params.numeroCompte,
-    numeroMomo: req.params.numeroMomo,
-    nombreProduitsAchetes: req.params.nombreProduitsAchetes,
-    totalArgentDepense: req.params.totalArgentDepense,
+    pseudo: req.body.pseudo,
+    password: req.body.password,
+    numeroCompte: req.body.numeroCompte,
+    numeroMomo: req.body.numeroMomo,
+    nombreProduitsAchetes: req.body.nombreProduitsAchetes,
+    totalArgentDepense: req.body.totalArgentDepense,
     dateAjout: req.body.dateAjout,
   });
 
@@ -114,7 +114,7 @@ exports.updateOneClient = (req, res, next) => {
     .then(() => {
       res.status(200).json({
         success: true,
-        message: "L'utilisateur a été modifié avec succès",
+        message: 'Le client a été modifié avec succès',
         result: client,
       });
     })
@@ -133,7 +133,7 @@ exports.deleteOneClient = (req, res, next) => {
     .then(() => {
       res.status(200).json({
         success: true,
-        message: "L'utilisateur a été supprimé avec succès",
+        message: 'Le client a été supprimé avec succès',
       });
     })
     .catch((error) => {
