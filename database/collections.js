@@ -4,6 +4,9 @@ const COLLECTIONS = {
   PRODUITS: 'produits',
   LOTS: 'lots',
   VENDEURS: 'vendeurs',
+  CLIENTS: 'clients',
+  COMMISSAIREPRISEUR: 'commissairepriseurs',
+  GERANTS: 'gerants',
 };
 
 module.exports = COLLECTIONS;
