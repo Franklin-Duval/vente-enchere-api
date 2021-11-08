@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const commissairePrisseurCtrl = require('../controllers/commissairePriseurController');
+const commissairePriseurCtrl = require('../controllers/commissairePriseurController');
 
-router.get('/', commissairePrisseurCtrl.getAllCommissairePrisseur);
-router.post('/', commissairePrisseurCtrl.createCommissairePrisseur);
-router.get('/:id', commissairePrisseurCtrl.getOneCommissairePrisseur);
-router.put('/:id', commissairePrisseurCtrl.updateOneCommissairePrisseur);
-router.delete('/:id', commissairePrisseurCtrl.deleteOneCommissairePrisseur);
+router.get('/', commissairePriseurCtrl.getAllCommissairePriseur);
+router.post('/', commissairePriseurCtrl.createCommissairePriseur);
+router.get('/:id', commissairePriseurCtrl.getOneCommissairePriseur);
+router.put('/:id', commissairePriseurCtrl.updateOneCommissairePriseur);
+router.delete('/:id', commissairePriseurCtrl.deleteOneCommissairePriseur);
 
 module.exports = router;
