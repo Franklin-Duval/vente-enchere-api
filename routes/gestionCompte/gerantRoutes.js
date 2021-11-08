@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const gerantCtrl = require('../controllers/gerantController');
+const gerantCtrl = require('../../controllers/gestionCompte/gerantController');
 
 router.get('/', gerantCtrl.getAllGerant);
 router.post('/', gerantCtrl.createGerant);

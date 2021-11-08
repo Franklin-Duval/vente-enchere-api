@@ -1,12 +1,12 @@
-const User = require('../models/user');
+const Gerant = require('../../models/gestionCompte/gerant');
 
-exports.getAllUser = (req, res, next) => {
-  User.find({})
-    .then((users) => {
+exports.getAllGerant = (req, res, next) => {
+  Gerant.find({})
+    .then((gerants) => {
       res.status(200).json({
         success: true,
-        message: 'Les utilisateurs ont été récuppérés avec succès',
-        result: users,
+        message: 'Les gerants ont été récuppérés avec succès',
+        result: gerants,
       });
     })
     .catch((error) => {
@@ -19,13 +19,13 @@ exports.getAllUser = (req, res, next) => {
     });
 };
 
-exports.getOneUser = (req, res, next) => {
-  User.findOne({ _id: req.params.id })
-    .then((user) => {
+exports.getOneGerant = (req, res, next) => {
+  Gerant.findOne({ _id: req.params.id })
+    .then((gerant) => {
       res.status(200).json({
         success: true,
-        message: "L'utilisateur a été récuppéré avec succès",
-        result: user,
+        message: 'Le gerant a été récuppéré avec succès',
+        result: gerant,
       });
     })
     .catch((error) => {
@@ -38,23 +38,39 @@ exports.getOneUser = (req, res, next) => {
     });
 };
 
-exports.createUser = (req, res, next) => {
-  const { nom, prenom, adresse, contact, dateAjout } = req.body;
-  const user = new User({
+exports.createGerant = (req, res, next) => {
+  const {
     nom,
     prenom,
     adresse,
-    contact,
+    pays,
+    ville,
+    email,
+    telephone,
+    pseudo,
+    password,
+    dateAjout,
+  } = req.body;
+  const gerant = new Gerant({
+    nom,
+    prenom,
+    adresse,
+    pays,
+    ville,
+    email,
+    telephone,
+    pseudo,
+    password,
     dateAjout,
   });
 
-  user
+  gerant
     .save()
     .then(() => {
       res.status(201).json({
         success: true,
-        message: "L'utilisateur a été enregistré avec succès",
-        result: user,
+        message: 'Le gerant a été enregistré avec succès',
+        result: gerant,
       });
     })
     .catch((error) => {
@@ -67,22 +83,27 @@ exports.createUser = (req, res, next) => {
     });
 };
 
-exports.updateOneUser = (req, res, next) => {
-  const user = new User({
+exports.updateOneGerant = (req, res, next) => {
+  const gerant = new Gerant({
     _id: req.params.id,
     nom: req.body.nom,
     prenom: req.body.prenom,
     adresse: req.body.adresse,
-    contact: req.body.contact,
+    pays: req.body.pays,
+    ville: req.body.ville,
+    email: req.body.email,
+    telephone: req.body.telephone,
+    pseudo: req.body.pseudo,
+    password: req.body.password,
     dateAjout: req.body.dateAjout,
   });
 
-  User.updateOne({ _id: req.params.id }, user)
+  Gerant.updateOne({ _id: req.params.id }, gerant)
     .then(() => {
       res.status(200).json({
         success: true,
-        message: "L'utilisateur a été modifié avec succès",
-        result: user,
+        message: 'Le gerant a été modifié avec succès',
+        result: gerant,
       });
     })
     .catch((error) => {
@@ -95,12 +116,12 @@ exports.updateOneUser = (req, res, next) => {
     });
 };
 
-exports.deleteOneUser = (req, res, next) => {
-  User.deleteOne({ _id: req.params.id })
+exports.deleteOneGerant = (req, res, next) => {
+  Gerant.deleteOne({ _id: req.params.id })
     .then(() => {
       res.status(200).json({
         success: true,
-        message: "L'utilisateur a été supprimé avec succès",
+        message: 'Le gerant a été supprimé avec succès',
       });
     })
     .catch((error) => {

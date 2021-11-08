@@ -1,4 +1,4 @@
-const Vendeur = require('../models/vendeur');
+const Vendeur = require('../../models/gestionCompte/vendeur');
 
 exports.getAllVendeur = (req, res, next) => {
   Vendeur.find({})

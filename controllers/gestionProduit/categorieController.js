@@ -1,13 +1,12 @@
-const Lot = require('../models/lot');
+const Categorie = require('../../models/gestionProduit/categorie');
 
-exports.getAllLot = (req, res, next) => {
-  Lot.find({})
-    .populate('produits')
-    .then((lots) => {
+exports.getAllCategorie = (req, res, next) => {
+  Categorie.find({})
+    .then((categories) => {
       res.status(200).json({
         success: true,
-        message: 'Les lots ont été récuppérés avec succès',
-        result: lots,
+        message: 'Les categories ont été récuppérés avec succès',
+        result: categories,
       });
     })
     .catch((error) => {
@@ -20,14 +19,13 @@ exports.getAllLot = (req, res, next) => {
     });
 };
 
-exports.getOneLot = (req, res, next) => {
-  Lot.findOne({ _id: req.params.id })
-    .populate('produits')
-    .then((lot) => {
+exports.getOneCategorie = (req, res, next) => {
+  Categorie.findOne({ _id: req.params.id })
+    .then((categorie) => {
       res.status(200).json({
         success: true,
-        message: 'Le lot a été récuppéré avec succès',
-        result: lot,
+        message: 'La categorie a été récuppéré avec succès',
+        result: categorie,
       });
     })
     .catch((error) => {
@@ -40,64 +38,22 @@ exports.getOneLot = (req, res, next) => {
     });
 };
 
-exports.createLot = (req, res, next) => {
-  const lot = new Lot({
-    prixFinalVente: req.body.prixFinalVente,
-    statut: req.body.statut,
-    prixMin: req.body.prixMin,
-    nonVendu: req.body.nonVendu,
-    dateMiseEnchere: req.body.dateMiseEnchere,
-    produits: req.body.produits,
-    commentaireRefus: req.body.commentaireRefus,
-    dateReception: req.body.dateReception,
-    dateRefus: req.body.dateRefus,
+exports.createCategorie = (req, res, next) => {
+  const categorie = new Categorie({
+    nom: req.body.nom,
+    description: req.body.description,
     dateCreation: req.body.dateCreation,
     dateModification: req.body.dateModification,
     dateSuppression: req.body.dateSuppression,
   });
 
-  lot
+  categorie
     .save()
     .then(() => {
       res.status(201).json({
         success: true,
-        message: 'Le lot a été enregistré avec succès',
-        result: lot,
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(400).json({
-        success: false,
-        message: "Une erreur s'est produite",
-        result: undefined,
-      });
-    });
-};
-
-exports.updateOneLot = (req, res, next) => {
-  const lot = new Lot({
-    _id: req.params.id,
-    prixFinalVente: req.body.prixFinalVente,
-    statut: req.body.statut,
-    prixMin: req.body.prixMin,
-    nonVendu: req.body.nonVendu,
-    dateMiseEnchere: req.body.dateMiseEnchere,
-    produits: req.body.produits,
-    commentaireRefus: req.body.commentaireRefus,
-    dateReception: req.body.dateReception,
-    dateRefus: req.body.dateRefus,
-    dateCreation: req.body.dateCreation,
-    dateModification: req.body.dateModification,
-    dateSuppression: req.body.dateSuppression,
-  });
-
-  Lot.updateOne({ _id: req.params.id }, lot)
-    .then(() => {
-      res.status(200).json({
-        success: true,
-        message: 'Le lot a été modifié avec succès',
-        result: lot,
+        message: 'La categorie a été enregistré avec succès',
+        result: categorie,
       });
     })
     .catch((error) => {
@@ -110,12 +66,40 @@ exports.updateOneLot = (req, res, next) => {
     });
 };
 
-exports.deleteOneLot = (req, res, next) => {
-  Lot.deleteOne({ _id: req.params.id })
+exports.updateOneCategorie = (req, res, next) => {
+  const categorie = new Categorie({
+    _id: req.params.id,
+    nom: req.body.nom,
+    description: req.body.description,
+    dateCreation: req.body.dateCreation,
+    dateModification: req.body.dateModification,
+    dateSuppression: req.body.dateSuppression,
+  });
+
+  Categorie.updateOne({ _id: req.params.id }, categorie)
     .then(() => {
       res.status(200).json({
         success: true,
-        message: 'Le lot a été supprimé avec succès',
+        message: 'La categorie a été modifié avec succès',
+        result: categorie,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({
+        success: false,
+        message: "Une erreur s'est produite",
+        result: undefined,
+      });
+    });
+};
+
+exports.deleteOneCategorie = (req, res, next) => {
+  Categorie.deleteOne({ _id: req.params.id })
+    .then(() => {
+      res.status(200).json({
+        success: true,
+        message: 'La categorie a été supprimé avec succès',
       });
     })
     .catch((error) => {

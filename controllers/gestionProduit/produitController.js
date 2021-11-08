@@ -1,12 +1,14 @@
-const Categorie = require('../models/categorie');
+const Produit = require('../../models/gestionProduit/produit');
 
-exports.getAllCategorie = (req, res, next) => {
-  Categorie.find({})
-    .then((categories) => {
+exports.getAllProduit = (req, res, next) => {
+  Produit.find({})
+    .populate('vendeur') // to show vendeur object in the json response
+    .populate('category') // to show category object in the json response
+    .then((produits) => {
       res.status(200).json({
         success: true,
-        message: 'Les categories ont été récuppérés avec succès',
-        result: categories,
+        message: 'Les produits ont été récuppérés avec succès',
+        result: produits,
       });
     })
     .catch((error) => {
@@ -19,13 +21,15 @@ exports.getAllCategorie = (req, res, next) => {
     });
 };
 
-exports.getOneCategorie = (req, res, next) => {
-  Categorie.findOne({ _id: req.params.id })
-    .then((categorie) => {
+exports.getOneProduit = (req, res, next) => {
+  Produit.findOne({ _id: req.params.id })
+    .populate('vendeur') // to show vendeur object in the json response
+    .populate('category') // to show category object in the json response
+    .then((produit) => {
       res.status(200).json({
         success: true,
-        message: 'La categorie a été récuppéré avec succès',
-        result: categorie,
+        message: 'La produit a été récuppéré avec succès',
+        result: produit,
       });
     })
     .catch((error) => {
@@ -38,22 +42,28 @@ exports.getOneCategorie = (req, res, next) => {
     });
 };
 
-exports.createCategorie = (req, res, next) => {
-  const categorie = new Categorie({
+exports.createProduit = (req, res, next) => {
+  const produit = new Produit({
     nom: req.body.nom,
     description: req.body.description,
+    prixMin: req.body.prixMin,
+    vendeur: req.body.vendeur,
+    category: req.body.category,
+    images: req.uploadedImages.map((value) => value._id),
+    estBio: req.body.estBio,
+    statut: req.body.statut,
     dateCreation: req.body.dateCreation,
     dateModification: req.body.dateModification,
     dateSuppression: req.body.dateSuppression,
   });
 
-  categorie
+  produit
     .save()
     .then(() => {
       res.status(201).json({
         success: true,
-        message: 'La categorie a été enregistré avec succès',
-        result: categorie,
+        message: 'La produit a été enregistré avec succès',
+        result: produit,
       });
     })
     .catch((error) => {
@@ -66,22 +76,28 @@ exports.createCategorie = (req, res, next) => {
     });
 };
 
-exports.updateOneCategorie = (req, res, next) => {
-  const categorie = new Categorie({
+exports.updateOneProduit = (req, res, next) => {
+  const produit = new Produit({
     _id: req.params.id,
     nom: req.body.nom,
     description: req.body.description,
+    prixMin: req.body.prixMin,
+    vendeur: req.body.vendeur,
+    category: req.body.category,
+    images: req.uploadedImages.map((value) => value._id),
+    estBio: req.body.estBio,
+    statut: req.body.statut,
     dateCreation: req.body.dateCreation,
     dateModification: req.body.dateModification,
     dateSuppression: req.body.dateSuppression,
   });
 
-  Categorie.updateOne({ _id: req.params.id }, categorie)
+  Produit.updateOne({ _id: req.params.id }, produit)
     .then(() => {
       res.status(200).json({
         success: true,
-        message: 'La categorie a été modifié avec succès',
-        result: categorie,
+        message: 'La produit a été modifié avec succès',
+        result: produit,
       });
     })
     .catch((error) => {
@@ -94,12 +110,12 @@ exports.updateOneCategorie = (req, res, next) => {
     });
 };
 
-exports.deleteOneCategorie = (req, res, next) => {
-  Categorie.deleteOne({ _id: req.params.id })
+exports.deleteOneProduit = (req, res, next) => {
+  Produit.deleteOne({ _id: req.params.id })
     .then(() => {
       res.status(200).json({
         success: true,
-        message: 'La categorie a été supprimé avec succès',
+        message: 'La produit a été supprimé avec succès',
       });
     })
     .catch((error) => {

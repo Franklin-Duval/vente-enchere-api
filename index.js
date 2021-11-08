@@ -1,17 +1,21 @@
 const express = require('express');
 const cors = require('cors');
+const passport = require('passport');
 require('dotenv').config();
 const connection = require('./database/dbConnection');
 
-var userRoutes = require('./routes/usersRoutes');
 var imageRoutes = require('./routes/imagesRoutes');
-var categorieRoutes = require('./routes/categorieRoutes');
-var lotRoutes = require('./routes/lotRoutes');
-var produitRoutes = require('./routes/produitRoutes');
-var clientRoutes = require('./routes/clientRoutes');
-var commissairePrisseurRoutes = require('./routes/commissairePriseurRoutes');
-var gerantRoutes = require('./routes/gerantRoutes');
-var vendeurRoutes = require('./routes/vendeurRoutes');
+var categorieRoutes = require('./routes/gestionProduit/categorieRoutes');
+var lotRoutes = require('./routes/gestionProduit/lotRoutes');
+var produitRoutes = require('./routes/gestionProduit/produitRoutes');
+
+var clientRoutes = require('./routes/gestionCompte/clientRoutes');
+var commissairePrisseurRoutes = require('./routes/gestionCompte/commissaireRoutes');
+var gerantRoutes = require('./routes/gestionCompte/gerantRoutes');
+var vendeurRoutes = require('./routes/gestionCompte/vendeurRoutes');
+var authRoutes = require('./routes/gestionCompte/authRoutes');
+
+require('./strategies/local');
 
 const app = express();
 
@@ -21,7 +25,13 @@ app.use(cors());
 // connection do mongo database
 connection();
 
-app.use('/api/users', userRoutes);
+app.use(passport.initialize());
+
+app.use('/api/auth', authRoutes);
+
+//  auth middleware: All routes below are protected
+app.use(passport.authenticate('jwt', { session: false }));
+
 app.use('/api/images', imageRoutes);
 app.use('/api/categories', categorieRoutes);
 app.use('/api/lots', lotRoutes);

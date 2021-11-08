@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const categorieCtrl = require('../controllers/categorieController');
+const categorieCtrl = require('../../controllers/gestionProduit/categorieController');
 
 router.get('/', categorieCtrl.getAllCategorie);
 router.post('/', categorieCtrl.createCategorie);

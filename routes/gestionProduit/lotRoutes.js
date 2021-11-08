@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const lotCtrl = require('../controllers/lotController');
+const lotCtrl = require('../../controllers/gestionProduit/lotController');
 
 router.get('/', lotCtrl.getAllLot);
 router.post('/', lotCtrl.createLot);

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const COLLECTIONS = require('../database/collections');
+const COLLECTIONS = require('../../database/collections');
 
 const Schema = mongoose.Schema;
 

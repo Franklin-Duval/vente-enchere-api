@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const commissairePriseurCtrl = require('../controllers/commissairePriseurController');
+const commissairePriseurCtrl = require('../../controllers/gestionCompte/commissaireController');
 
 router.get('/', commissairePriseurCtrl.getAllCommissairePriseur);
 router.post('/', commissairePriseurCtrl.createCommissairePriseur);
