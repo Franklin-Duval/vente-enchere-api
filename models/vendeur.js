@@ -56,7 +56,7 @@ const VendeurSchema = new Schema({
   },
   chiffreAffaire: {
     type: Number,
-    required: true,
+    required: false,
     default: 0,
   },
   nombreLotsVendu: {
