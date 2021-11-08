@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const vendeurCtrl = require('../controllers/vendeurController');
+const vendeurCtrl = require('../../controllers/gestionCompte/vendeurController');
 
 router.get('/', vendeurCtrl.getAllVendeur);
 router.post('/', vendeurCtrl.createVendeur);

@@ -1,4 +1,4 @@
-const Client = require('../models/client');
+const Client = require('../../models/gestionCompte/client');
 
 exports.getAllClient = (req, res, next) => {
   Client.find({})

@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const COLLECTIONS = require('../database/collections');
+const COLLECTIONS = require('../../database/collections');
 
 const Schema = mongoose.Schema;
 
-const CommissairePriseurSchema = new Schema({
+const VendeurSchema = new Schema({
   nom: {
     type: String,
     required: true,
@@ -43,10 +43,32 @@ const CommissairePriseurSchema = new Schema({
     type: String,
     required: true,
   },
-  nombreEnchereOrganisee: {
+  accreditation: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  numeroCNI: {
+    type: String,
+    required: true,
+  },
+  specialite: {
+    type: String,
+    required: true,
+  },
+  chiffreAffaire: {
     type: Number,
     required: false,
     default: 0,
+  },
+  nombreLotsVendu: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+  gerant: {
+    type: Schema.Types.ObjectId,
+    ref: COLLECTIONS.GERANTS,
   },
   dateAjout: {
     type: Date,
@@ -54,9 +76,6 @@ const CommissairePriseurSchema = new Schema({
   },
 });
 
-const CommissairePriseur = mongoose.model(
-  COLLECTIONS.COMMISSAIREPRISEUR,
-  CommissairePriseurSchema,
-);
+const Vendeur = mongoose.model(COLLECTIONS.VENDEURS, VendeurSchema);
 
-module.exports = CommissairePriseur;
+module.exports = Vendeur;

@@ -9,11 +9,13 @@ var imageRoutes = require('./routes/imagesRoutes');
 var categorieRoutes = require('./routes/categorieRoutes');
 var lotRoutes = require('./routes/lotRoutes');
 var produitRoutes = require('./routes/produitRoutes');
-var clientRoutes = require('./routes/clientRoutes');
-var commissairePrisseurRoutes = require('./routes/commissairePriseurRoutes');
-var gerantRoutes = require('./routes/gerantRoutes');
-var vendeurRoutes = require('./routes/vendeurRoutes');
-var authRoutes = require('./routes/authRoutes');
+
+var clientRoutes = require('./routes/gestionCompte/clientRoutes');
+var commissairePrisseurRoutes = require('./routes/gestionCompte/commissaireRoutes');
+var gerantRoutes = require('./routes/gestionCompte/gerantRoutes');
+var vendeurRoutes = require('./routes/gestionCompte/vendeurRoutes');
+var authRoutes = require('./routes/gestionCompte/authRoutes');
+
 require('./strategies/local');
 
 const app = express();
@@ -40,7 +42,6 @@ app.use('/api/clients', clientRoutes);
 app.use('/api/commissaires_priseur', commissairePrisseurRoutes);
 app.use('/api/gerants', gerantRoutes);
 app.use('/api/vendeurs', vendeurRoutes);
-app.use('/api/auth', authRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`API listening at http://localhost:${process.env.PORT}`);

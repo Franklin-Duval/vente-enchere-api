@@ -1,4 +1,4 @@
-const Gerant = require('../models/gerant');
+const Gerant = require('../../models/gestionCompte/gerant');
 
 exports.getAllGerant = (req, res, next) => {
   Gerant.find({})

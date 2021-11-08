@@ -1,4 +1,4 @@
-const CommissairePriseur = require('../models/commissairePriseur');
+const CommissairePriseur = require('../../models/gestionCompte/commissaire');
 
 exports.getAllCommissairePriseur = (req, res, next) => {
   CommissairePriseur.find({})
