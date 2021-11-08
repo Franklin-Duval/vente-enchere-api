@@ -42,7 +42,7 @@ const ClientSchema = new Schema({
   },
   numeroCompte: {
     type: String,
-    required: true,
+    required: false,
   },
   numeroMomo: {
     type: String,
