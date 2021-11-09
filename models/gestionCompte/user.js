@@ -54,6 +54,12 @@ const UserSchema = new Schema({
     required: false,
     default: 0,
   },
+  produitsAchetes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: COLLECTIONS.PRODUITS,
+    },
+  ],
   dateAjout: {
     type: Date,
     default: Date.now(),

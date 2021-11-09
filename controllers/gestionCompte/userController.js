@@ -52,6 +52,7 @@ exports.createUser = (req, res, next) => {
     numeroMomo,
     nombreProduitsAchetes,
     totalArgentDepense,
+    produitsAchetes,
     dateAjout,
   } = req.body;
   const user = new User({
@@ -67,6 +68,7 @@ exports.createUser = (req, res, next) => {
     numeroMomo,
     nombreProduitsAchetes,
     totalArgentDepense,
+    produitsAchetes,
     dateAjout,
   });
 
@@ -104,6 +106,7 @@ exports.updateOneUser = (req, res, next) => {
     numeroMomo: req.body.numeroMomo,
     nombreProduitsAchetes: req.body.nombreProduitsAchetes,
     totalArgentDepense: req.body.totalArgentDepense,
+    produitsAchetes: req.body.produitsAchetes,
     dateAjout: req.body.dateAjout,
   });
 
