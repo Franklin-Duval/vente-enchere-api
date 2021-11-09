@@ -12,7 +12,6 @@ const CompteSchema = new Schema({
   password: {
     type: String,
     required: true,
-    unique: true,
   },
   isActivated: {
     type: Boolean,
