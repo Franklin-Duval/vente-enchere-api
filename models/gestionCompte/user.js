@@ -60,6 +60,13 @@ const UserSchema = new Schema({
       ref: COLLECTIONS.PRODUITS,
     },
   ],
+
+  compte: {
+    type: Schema.Types.ObjectId,
+    ref: COLLECTIONS.COMPTES,
+    required: true,
+    unique: true,
+  },
   dateAjout: {
     type: Date,
     default: Date.now(),

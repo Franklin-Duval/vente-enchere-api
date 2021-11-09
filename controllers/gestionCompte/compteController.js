@@ -39,12 +39,11 @@ exports.getOneCompte = (req, res, next) => {
 };
 
 exports.createCompte = (req, res, next) => {
-  const { email, password, isActivated, user } = req.body;
+  const { email, password, isActivated } = req.body;
   const compte = new Compte({
     email,
     password,
     isActivated,
-    user,
   });
 
   compte
@@ -72,7 +71,6 @@ exports.updateOneCompte = (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
     isActivated: req.body.isActivated,
-    user: req.body.user,
   });
 
   Compte.updateOne({ _id: req.params.id }, compte)

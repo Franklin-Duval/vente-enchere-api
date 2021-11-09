@@ -19,12 +19,6 @@ const CompteSchema = new Schema({
     required: false,
     default: false,
   },
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: COLLECTIONS.USERS,
-    required: true,
-    unique: true,
-  },
 });
 
 const Compte = mongoose.model(COLLECTIONS.COMPTES, CompteSchema);
