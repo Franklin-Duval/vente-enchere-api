@@ -4,48 +4,15 @@ const COLLECTIONS = require('../../database/collections');
 const Schema = mongoose.Schema;
 
 const GerantSchema = new Schema({
-  nom: {
-    type: String,
-    required: true,
-  },
-  prenom: {
-    type: String,
-    required: true,
-  },
-  localisation: {
-    adresse: {
-      type: String,
-      required: true,
-    },
-    pays: {
-      type: String,
-      required: true,
-    },
-    ville: {
-      type: String,
-      required: true,
-    },
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  telephone: {
-    type: String,
-    required: true,
-  },
-  pseudo: {
-    type: String,
+  nombreAccreditation: {
+    type: Number,
     required: false,
   },
-  password: {
-    type: String,
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: COLLECTIONS.USERS,
     required: true,
-  },
-  dateAjout: {
-    type: Date,
-    default: Date.now(),
+    unique: true,
   },
 });
 
