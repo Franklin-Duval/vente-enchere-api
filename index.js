@@ -9,7 +9,7 @@ var categorieRoutes = require('./routes/gestionProduit/categorieRoutes');
 var lotRoutes = require('./routes/gestionProduit/lotRoutes');
 var produitRoutes = require('./routes/gestionProduit/produitRoutes');
 
-var clientRoutes = require('./routes/gestionCompte/clientRoutes');
+var userRoutes = require('./routes/gestionCompte/userRoutes');
 var commissairePrisseurRoutes = require('./routes/gestionCompte/commissaireRoutes');
 var gerantRoutes = require('./routes/gestionCompte/gerantRoutes');
 var vendeurRoutes = require('./routes/gestionCompte/vendeurRoutes');
@@ -36,7 +36,7 @@ app.use('/api/images', imageRoutes);
 app.use('/api/categories', categorieRoutes);
 app.use('/api/lots', lotRoutes);
 app.use('/api/produits', produitRoutes);
-app.use('/api/clients', clientRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/commissaires_priseur', commissairePrisseurRoutes);
 app.use('/api/gerants', gerantRoutes);
 app.use('/api/vendeurs', vendeurRoutes);
