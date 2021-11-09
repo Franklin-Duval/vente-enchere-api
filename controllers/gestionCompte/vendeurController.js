@@ -40,40 +40,22 @@ exports.getOneVendeur = (req, res, next) => {
 
 exports.createVendeur = (req, res, next) => {
   const {
-    nom,
-    prenom,
-    adresse,
-    pays,
-    ville,
-    email,
-    telephone,
-    pseudo,
-    password,
     accreditation,
     numeroCNI,
     specialite,
     chiffreAffaire,
     nombreLotsVendu,
+    user,
     gerant,
-    dateAjout,
   } = req.body;
   const vendeur = new Vendeur({
-    nom,
-    prenom,
-    adresse,
-    pays,
-    ville,
-    email,
-    telephone,
-    pseudo,
-    password,
     accreditation,
     numeroCNI,
     specialite,
     chiffreAffaire,
     nombreLotsVendu,
+    user,
     gerant,
-    dateAjout,
   });
 
   vendeur
@@ -98,22 +80,13 @@ exports.createVendeur = (req, res, next) => {
 exports.updateOneVendeur = (req, res, next) => {
   const vendeur = new Vendeur({
     _id: req.params.id,
-    nom: req.body.nom,
-    prenom: req.body.prenom,
-    adresse: req.body.adresse,
-    pays: req.body.pays,
-    ville: req.body.ville,
-    email: req.body.email,
-    telephone: req.body.telephone,
-    pseudo: req.body.pseudo,
-    password: req.body.password,
+    user: req.body.user,
     accreditation: req.body.accreditation,
     numeroCNI: req.body.numeroCNI,
     specialite: req.body.specialite,
     chiffreAffaire: req.body.chiffreAffaire,
     nombreLotsVendu: req.body.nombreLotsVendu,
     gerant: req.body.gerant,
-    dateAjout: req.body.dateAjout,
   });
 
   Vendeur.updateOne({ _id: req.params.id }, vendeur)
