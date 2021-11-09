@@ -1,4 +1,4 @@
-import bcrypt from 'bcryptjs';
+const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 export class EncryptionService {
