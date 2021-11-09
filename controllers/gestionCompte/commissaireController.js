@@ -39,31 +39,10 @@ exports.getOneCommissairePriseur = (req, res, next) => {
 };
 
 exports.createCommissairePriseur = (req, res, next) => {
-  const {
-    nom,
-    prenom,
-    adresse,
-    pays,
-    ville,
-    email,
-    telephone,
-    pseudo,
-    password,
-    nombreEnchereOrganisee,
-    dateAjout,
-  } = req.body;
+  const { nombreEnchereOrganisee, user } = req.body;
   const commissairePriseur = new CommissairePriseur({
-    nom,
-    prenom,
-    adresse,
-    pays,
-    ville,
-    email,
-    telephone,
-    pseudo,
-    password,
     nombreEnchereOrganisee,
-    dateAjout,
+    user,
   });
 
   commissairePriseur
@@ -88,17 +67,8 @@ exports.createCommissairePriseur = (req, res, next) => {
 exports.updateOneCommissairePriseur = (req, res, next) => {
   const commissairePriseur = new CommissairePriseur({
     _id: req.params.id,
-    nom: req.body.nom,
-    prenom: req.body.prenom,
-    adresse: req.body.adresse,
-    pays: req.body.pays,
-    ville: req.body.ville,
-    email: req.body.email,
-    telephone: req.body.telephone,
-    pseudo: req.body.pseudo,
-    password: req.body.password,
     nombreEnchereOrganisee: req.body.nombreEnchereOrganisee,
-    dateAjout: req.body.dateAjout,
+    user: req.body.user,
   });
 
   CommissairePriseur.updateOne({ _id: req.params.id }, commissairePriseur)
