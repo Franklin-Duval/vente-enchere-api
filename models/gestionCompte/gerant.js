@@ -7,6 +7,7 @@ const GerantSchema = new Schema({
   nombreAccreditation: {
     type: Number,
     required: false,
+    default: 0,
   },
   user: {
     type: Schema.Types.ObjectId,
