@@ -14,6 +14,7 @@ var commissairePrisseurRoutes = require('./routes/gestionCompte/commissaireRoute
 var gerantRoutes = require('./routes/gestionCompte/gerantRoutes');
 var vendeurRoutes = require('./routes/gestionCompte/vendeurRoutes');
 var authRoutes = require('./routes/gestionCompte/authRoutes');
+var compteRoutes = require('./routes/gestionCompte/compteRoutes');
 
 require('./strategies/local');
 
@@ -40,6 +41,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/commissaires_priseur', commissairePrisseurRoutes);
 app.use('/api/gerants', gerantRoutes);
 app.use('/api/vendeurs', vendeurRoutes);
+app.use('/api/comptes', compteRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`API listening at http://localhost:${process.env.PORT}`);
