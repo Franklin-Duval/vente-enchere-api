@@ -12,6 +12,7 @@ const VendeurSchema = new Schema({
   numeroCNI: {
     type: String,
     required: true,
+    unique: true,
   },
   specialite: {
     type: String,
@@ -30,10 +31,13 @@ const VendeurSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: COLLECTIONS.USERS,
+    required: true,
+    unique: true,
   },
   gerant: {
     type: Schema.Types.ObjectId,
     ref: COLLECTIONS.GERANTS,
+    required: false,
   },
 });
 
