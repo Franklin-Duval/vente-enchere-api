@@ -39,10 +39,9 @@ exports.getOneCompte = (req, res, next) => {
     });
 };
 
-exports.createCompte = (req, res, next) => {
-  const { email, password, isActivated } = req.body;
-  let encrypt = new EncryptionService();
-  password = encrypt.hashPassword(password);
+exports.createCompte = async (req, res, next) => {
+  const { email, pwd, isActivated } = req.body;
+  const password = await EncryptionService.hashPassword(pwd);
   const compte = new Compte({
     email,
     password,
@@ -69,18 +68,21 @@ exports.createCompte = (req, res, next) => {
 };
 
 exports.updateOneCompte = (req, res, next) => {
-  const compte = new Compte({
+  /* const compte = new Compte({
     _id: req.params.id,
     email: req.body.email,
     isActivated: false,
-  });
+  }); */
 
-  Compte.updateOne({ _id: req.params.id }, compte)
+  Compte.updateOne(
+    { _id: req.params.id },
+    { email: req.body.email, isActivated: false },
+  )
     .then(() => {
       res.status(200).json({
         success: true,
         message: 'Le compte a été modifié avec succès',
-        result: compte,
+        result: { email: req.body.email, isActivated: false },
       });
     })
     .catch((error) => {
@@ -94,15 +96,12 @@ exports.updateOneCompte = (req, res, next) => {
 };
 
 exports.activateOneCompte = (req, res, next) => {
-  Compte.updateOne(
-    { _id: req.params.id },
-    { isActivated: req.body.isActivated },
-  )
+  Compte.updateOne({ _id: req.params.id }, { isActivated: true })
     .then(() => {
       res.status(200).json({
         success: true,
         massage: 'Le compte a été activée',
-        result: { isActivated: req.body.isActivated },
+        result: true,
       });
     })
     .catch((error) => {
@@ -115,14 +114,17 @@ exports.activateOneCompte = (req, res, next) => {
     });
 };
 
-exports.changePassword = (req, res, next) => {
-  let encrypt = new EncryptionService();
+exports.changePassword = async (req, res, next) => {
   Compte.findOne({ _id: req.params.id })
     .then((compte) => {
-      if (encrypt.comparePassword(req.body.oldPassword, compte.password)) {
+      const val = EncryptionService.comparePassword(
+        req.body.oldPassword,
+        compte.password,
+      );
+      if (val) {
         Compte.updateOne(
           { _id: req.params.id },
-          { oldPassword: req.body.oldPassword, newPassword: newPassword },
+          { password: req.body.newPassword },
         )
           .then(() => {
             res.status(200).json({
