@@ -1,12 +1,12 @@
-const CommissairePriseur = require('../../models/gestionCompte/commissaire');
+const Commissaire = require('../../models/gestionCompte/commissaire');
 
-exports.getAllCommissairePriseur = (req, res, next) => {
-  CommissairePriseur.find({})
-    .then((commissairePriseurs) => {
+exports.getAllCommissaire = (req, res) => {
+  Commissaire.find({})
+    .then((commissaires) => {
       res.status(200).json({
         success: true,
         message: 'Les commissaires priseur ont été récuppérés avec succès',
-        result: commissairePriseurs,
+        result: commissaires,
       });
     })
     .catch((error) => {
@@ -19,13 +19,13 @@ exports.getAllCommissairePriseur = (req, res, next) => {
     });
 };
 
-exports.getOneCommissairePriseur = (req, res, next) => {
-  CommissairePriseur.findOne({ _id: req.params.id })
-    .then((commissairePriseur) => {
+exports.getOneCommissaire = (req, res) => {
+  Commissaire.findOne({ _id: req.params.id })
+    .then((commissaire) => {
       res.status(200).json({
         success: true,
         message: 'Le commissaire priseur a été récuppéré avec succès',
-        result: commissairePriseur,
+        result: commissaire,
       });
     })
     .catch((error) => {
@@ -38,20 +38,20 @@ exports.getOneCommissairePriseur = (req, res, next) => {
     });
 };
 
-exports.createCommissairePriseur = (req, res, next) => {
+exports.createCommissaire = (req, res) => {
   const { nombreEnchereOrganisee, user } = req.body;
-  const commissairePriseur = new CommissairePriseur({
+  const commissaire = new Commissaire({
     nombreEnchereOrganisee,
     user,
   });
 
-  commissairePriseur
+  commissaire
     .save()
     .then(() => {
       res.status(201).json({
         success: true,
         message: 'Le commissaire priseur a été enregistré avec succès',
-        result: commissairePriseur,
+        result: commissaire,
       });
     })
     .catch((error) => {
@@ -64,19 +64,19 @@ exports.createCommissairePriseur = (req, res, next) => {
     });
 };
 
-exports.updateOneCommissairePriseur = (req, res, next) => {
-  const commissairePriseur = new CommissairePriseur({
+exports.updateOneCommissaire = (req, res) => {
+  const commissaire = new Commissaire({
     _id: req.params.id,
     nombreEnchereOrganisee: req.body.nombreEnchereOrganisee,
     user: req.body.user,
   });
 
-  CommissairePriseur.updateOne({ _id: req.params.id }, commissairePriseur)
+  Commissaire.updateOne({ _id: req.params.id }, commissaire)
     .then(() => {
       res.status(200).json({
         success: true,
         message: 'Le commissaire priseur a été modifié avec succès',
-        result: commissairePriseur,
+        result: commissaire,
       });
     })
     .catch((error) => {
@@ -89,8 +89,8 @@ exports.updateOneCommissairePriseur = (req, res, next) => {
     });
 };
 
-exports.deleteOneCommissairePriseur = (req, res, next) => {
-  CommissairePriseur.deleteOne({ _id: req.params.id })
+exports.deleteOneCommissaire = (req, res) => {
+  Commissaire.deleteOne({ _id: req.params.id })
     .then(() => {
       res.status(200).json({
         success: true,
