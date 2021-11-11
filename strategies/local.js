@@ -2,34 +2,33 @@ const LocalStrategy = require('passport-local').Strategy;
 const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 const passport = require('passport');
+const User = require('../models/gestionCompte/user');
+const Compte = require('../models/gestionCompte/compte');
+const EncryptionService = require('../services/ecryptionService');
 
 passport.use(
   'signin',
   new LocalStrategy(
     { usernameField: 'email', passwordField: 'password' },
     async (email, password, done) => {
-      // try {
-      //   const user = await UserModel.findOne({ email });
-      //   if (!user) {
-      //     return done(null, false, { message: 'User not found' });
-      //   }
+      const compte = await Compte.findOne({ email }).then((compte) => compte);
+      if (!compte) {
+        return done(null, false, {
+          message: "L'utilisateur avec cet email n'existe pas",
+        });
+      }
+      const isValid = await EncryptionService.comparePassword(
+        password,
+        compte.password,
+      );
+      if (!isValid) {
+        return done(null, false, { message: 'Mot de passe incorrect' });
+      }
 
-      //   const validate = await user.isValidPassword(password);
-      //   if (!validate) {
-      //     return done(null, false, { message: 'Wrong Password' });
-      //   }
-      //   return done(null, user, { message: 'Logged in Successfully' });
-      // } catch (error) {
-      //   return done(error);
-      // }
-      console.log(email, password);
-      const result = {
-        _id: 'd2e552fa121',
-        name: 'Talom',
-        email: 'franklifrost@gmail.com',
-        adresse: 'Douala',
-      };
-      return done(null, result);
+      const user = await User.findOne({ compte: compte._id })
+        .populate('compte')
+        .then((user) => user);
+      return done(null, user, { message: 'Connexion avec succès' });
     },
   ),
 );
@@ -39,26 +38,21 @@ passport.use(
   new LocalStrategy(
     { usernameField: 'email', passwordField: 'password' },
     async (email, password, done) => {
-      console.log(email, password);
-      // try {
-      //   const user = await UserModel.create({ email, password });
-
-      //   return done(null, user);
-      // } catch (error) {
-      //   done(error);
-      // }
-      const result = {
-        _id: 'd2e552fa121',
-        name: 'Talom',
-        email: 'franklifrost@gmail.com',
-        adresse: 'Douala',
-      };
-      return done(null, result);
+      try {
+        const hashedPassword = await EncryptionService.hashPassword(password);
+        const compte = await Compte.create({
+          email,
+          password: hashedPassword,
+        }).then((compte) => compte);
+        return done(null, compte);
+      } catch (error) {
+        done(error);
+      }
     },
   ),
 );
 
-// verify the authenticity of a token: used as a middleware
+// verify the authenticity of a token: used as a middleware in index.js
 passport.use(
   new JWTstrategy(
     {
