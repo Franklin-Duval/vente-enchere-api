@@ -39,29 +39,10 @@ exports.getOneGerant = (req, res, next) => {
 };
 
 exports.createGerant = (req, res, next) => {
-  const {
-    nom,
-    prenom,
-    adresse,
-    pays,
-    ville,
-    email,
-    telephone,
-    pseudo,
-    password,
-    dateAjout,
-  } = req.body;
+  const { nombreAccreditation, user } = req.body;
   const gerant = new Gerant({
-    nom,
-    prenom,
-    adresse,
-    pays,
-    ville,
-    email,
-    telephone,
-    pseudo,
-    password,
-    dateAjout,
+    nombreAccreditation,
+    user,
   });
 
   gerant
@@ -86,16 +67,8 @@ exports.createGerant = (req, res, next) => {
 exports.updateOneGerant = (req, res, next) => {
   const gerant = new Gerant({
     _id: req.params.id,
-    nom: req.body.nom,
-    prenom: req.body.prenom,
-    adresse: req.body.adresse,
-    pays: req.body.pays,
-    ville: req.body.ville,
-    email: req.body.email,
-    telephone: req.body.telephone,
-    pseudo: req.body.pseudo,
-    password: req.body.password,
-    dateAjout: req.body.dateAjout,
+    nombreAccreditation: req.body.nombreAccreditation,
+    user: req.body.user,
   });
 
   Gerant.updateOne({ _id: req.params.id }, gerant)

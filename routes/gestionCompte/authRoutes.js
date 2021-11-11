@@ -1,6 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const User = require('../../models/gestionCompte/user');
 
 const router = express.Router();
 
@@ -31,12 +32,22 @@ router.post('/signup', async (req, res, next) => {
         const error = new Error('Bad request');
         return res.status(400).json({ error: error.message });
       }
-      console.log(req.body);
-      return res.json({ user });
+      const compte = user; //le compte est renvoyé par le middleware de passport dans la variable 'user'
 
-      req.login(user, { session: false }, async (error) => {
+      const newUser = await User.create({
+        nom: req.body.nom,
+        prenom: req.body.prenom,
+        telephone: req.body.telephone,
+        roles: req.body.roles,
+        localisation: req.body.localisation,
+        compte: compte._id,
+      }).then((user) => user);
+
+      req.login(newUser, { session: false }, async (error) => {
         if (error) return next(error);
-        const token = jwt.sign({ user }, 'TOP_SECRET', { expiresIn: '1d' }); // token expiration of 1 day
+        const token = jwt.sign({ user: newUser }, 'TOP_SECRET', {
+          expiresIn: '1d',
+        }); // token expiration of 1 day
 
         return res.json({ user, token });
       });

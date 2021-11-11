@@ -1,12 +1,12 @@
-const Commissaire = require('../../models/gestionCompte/commissaire');
+const User = require('../../models/gestionCompte/user');
 
-exports.getAllCommissaire = (req, res) => {
-  Commissaire.find({})
-    .then((commissaires) => {
+exports.getAllUser = (req, res) => {
+  User.find({})
+    .then((users) => {
       res.status(200).json({
         success: true,
-        message: 'Les commissaires priseur ont été récuppérés avec succès',
-        result: commissaires,
+        message: 'Les users ont été récuppérés avec succès',
+        result: users,
       });
     })
     .catch((error) => {
@@ -19,13 +19,13 @@ exports.getAllCommissaire = (req, res) => {
     });
 };
 
-exports.getOneCommissaire = (req, res) => {
-  Commissaire.findOne({ _id: req.params.id })
-    .then((commissaire) => {
+exports.getOneUser = (req, res) => {
+  User.findOne({ _id: req.params.id })
+    .then((user) => {
       res.status(200).json({
         success: true,
-        message: 'Le commissaire priseur a été récuppéré avec succès',
-        result: commissaire,
+        message: 'Le user a été récuppéré avec succès',
+        result: user,
       });
     })
     .catch((error) => {
@@ -38,20 +38,15 @@ exports.getOneCommissaire = (req, res) => {
     });
 };
 
-exports.createCommissaire = (req, res) => {
-  const { nombreEnchereOrganisee, user } = req.body;
-  const commissaire = new Commissaire({
-    nombreEnchereOrganisee,
-    user,
-  });
-
-  commissaire
+exports.createUser = (req, res) => {
+  const user = new User(req.body);
+  user
     .save()
     .then(() => {
       res.status(201).json({
         success: true,
-        message: 'Le commissaire priseur a été enregistré avec succès',
-        result: commissaire,
+        message: 'Le user a été enregistré avec succès',
+        result: user,
       });
     })
     .catch((error) => {
@@ -64,19 +59,13 @@ exports.createCommissaire = (req, res) => {
     });
 };
 
-exports.updateOneCommissaire = (req, res) => {
-  const commissaire = new Commissaire({
-    _id: req.params.id,
-    nombreEnchereOrganisee: req.body.nombreEnchereOrganisee,
-    user: req.body.user,
-  });
-
-  Commissaire.updateOne({ _id: req.params.id }, commissaire)
+exports.updateOneUser = (req, res) => {
+  User.updateOne({ _id: req.params.id }, req.body)
     .then(() => {
       res.status(200).json({
         success: true,
-        message: 'Le commissaire priseur a été modifié avec succès',
-        result: commissaire,
+        message: 'Le user a été modifié avec succès',
+        result: user,
       });
     })
     .catch((error) => {
@@ -89,12 +78,12 @@ exports.updateOneCommissaire = (req, res) => {
     });
 };
 
-exports.deleteOneCommissaire = (req, res) => {
-  Commissaire.deleteOne({ _id: req.params.id })
+exports.deleteOneUser = (req, res) => {
+  User.deleteOne({ _id: req.params.id })
     .then(() => {
       res.status(200).json({
         success: true,
-        message: 'Le commissaire priseur a été supprimé avec succès',
+        message: 'Le user a été supprimé avec succès',
       });
     })
     .catch((error) => {

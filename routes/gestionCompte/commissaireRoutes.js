@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const commissairePriseurCtrl = require('../../controllers/gestionCompte/commissaireController');
+const commissaireCtrl = require('../../controllers/gestionCompte/commissaireController');
 
-router.get('/', commissairePriseurCtrl.getAllCommissairePriseur);
-router.post('/', commissairePriseurCtrl.createCommissairePriseur);
-router.get('/:id', commissairePriseurCtrl.getOneCommissairePriseur);
-router.put('/:id', commissairePriseurCtrl.updateOneCommissairePriseur);
-router.delete('/:id', commissairePriseurCtrl.deleteOneCommissairePriseur);
+router.get('/', commissaireCtrl.getAllCommissaire);
+router.post('/', commissaireCtrl.createCommissaire);
+router.get('/:id', commissaireCtrl.getOneCommissaire);
+router.put('/:id', commissaireCtrl.updateOneCommissaire);
+router.delete('/:id', commissaireCtrl.deleteOneCommissaire);
 
 module.exports = router;
