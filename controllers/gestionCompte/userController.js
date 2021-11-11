@@ -1,6 +1,6 @@
 const User = require('../../models/gestionCompte/user');
 
-exports.getAllUser = (req, res, next) => {
+exports.getAllUser = (req, res) => {
   User.find({})
     .then((users) => {
       res.status(200).json({
@@ -19,7 +19,7 @@ exports.getAllUser = (req, res, next) => {
     });
 };
 
-exports.getOneUser = (req, res, next) => {
+exports.getOneUser = (req, res) => {
   User.findOne({ _id: req.params.id })
     .then((user) => {
       res.status(200).json({
@@ -38,42 +38,8 @@ exports.getOneUser = (req, res, next) => {
     });
 };
 
-exports.createUser = (req, res, next) => {
-  const {
-    nom,
-    prenom,
-    adresse,
-    pays,
-    ville,
-    telephone,
-    pseudo,
-    roles,
-    numeroCompte,
-    numeroMomo,
-    nombreProduitsAchetes,
-    totalArgentDepense,
-    produitsAchetes,
-    compte,
-    dateAjout,
-  } = req.body;
-  const user = new User({
-    nom,
-    prenom,
-    adresse,
-    pays,
-    ville,
-    telephone,
-    pseudo,
-    roles,
-    numeroCompte,
-    numeroMomo,
-    nombreProduitsAchetes,
-    totalArgentDepense,
-    produitsAchetes,
-    compte,
-    dateAjout,
-  });
-
+exports.createUser = (req, res) => {
+  const user = new User(req.body);
   user
     .save()
     .then(() => {
@@ -93,27 +59,8 @@ exports.createUser = (req, res, next) => {
     });
 };
 
-exports.updateOneUser = (req, res, next) => {
-  const user = new User({
-    _id: req.params.id,
-    nom: req.body.nom,
-    prenom: req.body.prenom,
-    adresse: req.body.adresse,
-    pays: req.body.pays,
-    ville: req.body.ville,
-    telephone: req.body.telephone,
-    pseudo: req.body.pseudo,
-    roles: req.body.roles,
-    numeroCompte: req.body.numeroCompte,
-    numeroMomo: req.body.numeroMomo,
-    nombreProduitsAchetes: req.body.nombreProduitsAchetes,
-    totalArgentDepense: req.body.totalArgentDepense,
-    produitsAchetes: req.body.produitsAchetes,
-    compte: req.body.compte,
-    dateAjout: req.body.dateAjout,
-  });
-
-  User.updateOne({ _id: req.params.id }, user)
+exports.updateOneUser = (req, res) => {
+  User.updateOne({ _id: req.params.id }, req.body)
     .then(() => {
       res.status(200).json({
         success: true,
@@ -131,7 +78,7 @@ exports.updateOneUser = (req, res, next) => {
     });
 };
 
-exports.deleteOneUser = (req, res, next) => {
+exports.deleteOneUser = (req, res) => {
   User.deleteOne({ _id: req.params.id })
     .then(() => {
       res.status(200).json({
