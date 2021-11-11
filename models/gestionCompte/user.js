@@ -34,15 +34,17 @@ const UserSchema = new Schema({
     type: String,
     required: false,
   },
-  roles: [],
-
+  roles: {
+    type: Array,
+    required: true,
+  },
   numeroCompte: {
     type: String,
     required: false,
   },
   numeroMomo: {
     type: String,
-    required: true,
+    required: false,
   },
   nombreProduitsAchetes: {
     type: Number,
@@ -60,7 +62,6 @@ const UserSchema = new Schema({
       ref: COLLECTIONS.PRODUITS,
     },
   ],
-
   compte: {
     type: Schema.Types.ObjectId,
     ref: COLLECTIONS.COMPTES,
