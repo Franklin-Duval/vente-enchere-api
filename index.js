@@ -4,6 +4,9 @@ const passport = require('passport');
 require('dotenv').config();
 const connection = require('./database/dbConnection');
 
+const swaggerUI = require('swagger-ui-express');
+const swaggerJsDoc = require('swagger-jsdoc');
+
 var imageRoutes = require('./routes/imagesRoutes');
 var categorieRoutes = require('./routes/gestionProduit/categorieRoutes');
 var lotRoutes = require('./routes/gestionProduit/lotRoutes');
@@ -15,6 +18,8 @@ var gerantRoutes = require('./routes/gestionCompte/gerantRoutes');
 var vendeurRoutes = require('./routes/gestionCompte/vendeurRoutes');
 var authRoutes = require('./routes/gestionCompte/authRoutes');
 var compteRoutes = require('./routes/gestionCompte/compteRoutes');
+
+var optionsSwagger = require('./swagger.json');
 
 require('./strategies/local');
 
@@ -42,6 +47,9 @@ app.use('/api/commissaires', commissaireRoutes);
 app.use('/api/gerants', gerantRoutes);
 app.use('/api/vendeurs', vendeurRoutes);
 app.use('/api/comptes', compteRoutes);
+
+const specs = swaggerJsDoc(optionsSwagger);
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 
 app.listen(process.env.PORT, () => {
   console.log(`API listening at http://localhost:${process.env.PORT}`);
