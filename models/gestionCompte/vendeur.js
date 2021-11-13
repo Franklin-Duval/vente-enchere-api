@@ -6,7 +6,6 @@ const Schema = mongoose.Schema;
 const VendeurSchema = new Schema({
   accreditation: {
     type: Boolean,
-    required: true,
     default: false,
   },
   numeroCNI: {
