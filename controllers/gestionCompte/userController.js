@@ -2,6 +2,7 @@ const User = require('../../models/gestionCompte/user');
 
 exports.getAllUser = (req, res) => {
   User.find({})
+    .populate('compte')
     .then((users) => {
       res.status(200).json({
         success: true,
@@ -21,6 +22,7 @@ exports.getAllUser = (req, res) => {
 
 exports.getOneUser = (req, res) => {
   User.findOne({ _id: req.params.id })
+    .populate('compte')
     .then((user) => {
       res.status(200).json({
         success: true,

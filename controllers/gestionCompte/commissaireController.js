@@ -2,6 +2,7 @@ const Commissaire = require('../../models/gestionCompte/commissaire');
 
 exports.getAllCommissaire = (req, res) => {
   Commissaire.find({})
+    .populate('user')
     .then((commissaires) => {
       res.status(200).json({
         success: true,
@@ -21,6 +22,7 @@ exports.getAllCommissaire = (req, res) => {
 
 exports.getOneCommissaire = (req, res) => {
   Commissaire.findOne({ _id: req.params.id })
+    .populate('user')
     .then((commissaire) => {
       res.status(200).json({
         success: true,

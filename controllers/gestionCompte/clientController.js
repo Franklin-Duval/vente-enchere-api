@@ -1,7 +1,8 @@
 const Client = require('../../models/gestionCompte/client');
 
-exports.getAllClient = (req, res, next) => {
+exports.getAllClient = (req, res) => {
   Client.find({})
+    .populate('user')
     .then((clients) => {
       res.status(200).json({
         success: true,
@@ -19,8 +20,9 @@ exports.getAllClient = (req, res, next) => {
     });
 };
 
-exports.getOneClient = (req, res, next) => {
+exports.getOneClient = (req, res) => {
   Client.findOne({ _id: req.params.id })
+    .populate('user')
     .then((client) => {
       res.status(200).json({
         success: true,
@@ -38,39 +40,8 @@ exports.getOneClient = (req, res, next) => {
     });
 };
 
-exports.createClient = (req, res, next) => {
-  const {
-    nom,
-    prenom,
-    adresse,
-    pays,
-    ville,
-    email,
-    telephone,
-    pseudo,
-    password,
-    numeroCompte,
-    numeroMomo,
-    nombreProduitsAchetes,
-    totalArgentDepense,
-    dateAjout,
-  } = req.body;
-  const client = new Client({
-    nom,
-    prenom,
-    adresse,
-    pays,
-    ville,
-    email,
-    telephone,
-    pseudo,
-    password,
-    numeroCompte,
-    numeroMomo,
-    nombreProduitsAchetes,
-    totalArgentDepense,
-    dateAjout,
-  });
+exports.createClient = (req, res) => {
+  const client = new Client(req.body);
 
   client
     .save()
@@ -91,7 +62,7 @@ exports.createClient = (req, res, next) => {
     });
 };
 
-exports.updateOneClient = (req, res, next) => {
+exports.updateOneClient = (req, res) => {
   const client = new Client({
     _id: req.params.id,
     nom: req.body.nom,
@@ -128,7 +99,7 @@ exports.updateOneClient = (req, res, next) => {
     });
 };
 
-exports.deleteOneClient = (req, res, next) => {
+exports.deleteOneClient = (req, res) => {
   Client.deleteOne({ _id: req.params.id })
     .then(() => {
       res.status(200).json({

@@ -2,6 +2,7 @@ const Vendeur = require('../../models/gestionCompte/vendeur');
 
 exports.getAllVendeur = (req, res, next) => {
   Vendeur.find({})
+    .populate('user')
     .then((vendeurs) => {
       res.status(200).json({
         success: true,
@@ -21,6 +22,7 @@ exports.getAllVendeur = (req, res, next) => {
 
 exports.getOneVendeur = (req, res, next) => {
   Vendeur.findOne({ _id: req.params.id })
+    .populate('user')
     .then((vendeur) => {
       res.status(200).json({
         success: true,

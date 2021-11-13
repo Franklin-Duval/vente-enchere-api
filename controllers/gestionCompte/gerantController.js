@@ -1,7 +1,8 @@
 const Gerant = require('../../models/gestionCompte/gerant');
 
-exports.getAllGerant = (req, res, next) => {
+exports.getAllGerant = (req, res) => {
   Gerant.find({})
+    .populate('user')
     .then((gerants) => {
       res.status(200).json({
         success: true,
@@ -19,8 +20,9 @@ exports.getAllGerant = (req, res, next) => {
     });
 };
 
-exports.getOneGerant = (req, res, next) => {
+exports.getOneGerant = (req, res) => {
   Gerant.findOne({ _id: req.params.id })
+    .populate('user')
     .then((gerant) => {
       res.status(200).json({
         success: true,
@@ -38,7 +40,7 @@ exports.getOneGerant = (req, res, next) => {
     });
 };
 
-exports.createGerant = (req, res, next) => {
+exports.createGerant = (req, res) => {
   const { nombreAccreditation, user } = req.body;
   const gerant = new Gerant({
     nombreAccreditation,
@@ -64,7 +66,7 @@ exports.createGerant = (req, res, next) => {
     });
 };
 
-exports.updateOneGerant = (req, res, next) => {
+exports.updateOneGerant = (req, res) => {
   const gerant = new Gerant({
     _id: req.params.id,
     nombreAccreditation: req.body.nombreAccreditation,
@@ -89,7 +91,7 @@ exports.updateOneGerant = (req, res, next) => {
     });
 };
 
-exports.deleteOneGerant = (req, res, next) => {
+exports.deleteOneGerant = (req, res) => {
   Gerant.deleteOne({ _id: req.params.id })
     .then(() => {
       res.status(200).json({
