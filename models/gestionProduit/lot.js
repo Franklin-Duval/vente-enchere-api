@@ -4,6 +4,13 @@ const COLLECTIONS = require('../../database/collections');
 const Schema = mongoose.Schema;
 
 const LotSchema = new Schema({
+  numeroLot: {
+    type: Number,
+    required: true,
+    min: 100000,
+    minlength: 6,
+    unique: true,
+  },
   prixFinalVente: {
     type: String,
     required: false,
@@ -14,7 +21,7 @@ const LotSchema = new Schema({
   },
   prixMin: {
     type: String,
-    required: true,
+    required: false,
   },
   nonVendu: {
     type: Boolean,

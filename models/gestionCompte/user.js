@@ -46,22 +46,6 @@ const UserSchema = new Schema({
     type: String,
     required: false,
   },
-  nombreProduitsAchetes: {
-    type: Number,
-    required: false,
-    default: 0,
-  },
-  totalArgentDepense: {
-    type: Number,
-    required: false,
-    default: 0,
-  },
-  produitsAchetes: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: COLLECTIONS.PRODUITS,
-    },
-  ],
   compte: {
     type: Schema.Types.ObjectId,
     ref: COLLECTIONS.COMPTES,
