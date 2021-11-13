@@ -4,22 +4,68 @@ const jwt = require('jsonwebtoken');
 const User = require('../../models/gestionCompte/user');
 const Client = require('../../models/gestionCompte/client');
 const Vendeur = require('../../models/gestionCompte/vendeur');
+const Gerant = require('../../models/gestionCompte/gerant');
+const Commissaire = require('../../models/gestionCompte/commissaire');
 
 const router = express.Router();
 
 router.post('/signin', async (req, res, next) => {
   passport.authenticate('signin', async (err, user, info) => {
+    console.log(err, info);
     try {
       if (err || !user) {
-        const error = new Error('An error occurred.');
-        return next(error);
+        return res.json({
+          success: false,
+          info,
+          result: undefined,
+        });
       }
 
-      req.login(user, { session: false }, async (error) => {
-        if (error) return next(error);
-        const token = jwt.sign({ user }, 'TOP_SECRET', { expiresIn: '1d' }); // token expiration of 1 day
+      let responseToSend = {
+        _id: undefined,
+        nom: user.nom,
+        prenom: user.prenom,
+        telephone: user.telephone,
+        email: user.email,
+        roles: user.roles,
+        compte: user.compte,
+        token: undefined,
+      };
 
-        return res.json({ user, token });
+      if (responseToSend.roles.includes('client')) {
+        const userFound = await Client.findOne({ user: user._id }).then(
+          (user) => user,
+        );
+        responseToSend._id = userFound._id;
+      } else if (responseToSend.roles.includes('vendeur')) {
+        const userFound = await Vendeur.findOne({ user: user._id }).then(
+          (user) => user,
+        );
+        responseToSend._id = userFound._id;
+      } else if (responseToSend.roles.includes('gerant')) {
+        const userFound = await Gerant.findOne({ user: user._id }).then(
+          (user) => user,
+        );
+        responseToSend._id = userFound._id;
+      } else if (responseToSend.roles.includes('commissaire')) {
+        const userFound = await Commissaire.findOne({ user: user._id }).then(
+          (user) => user,
+        );
+        responseToSend._id = userFound._id;
+      }
+
+      req.login(responseToSend, { session: false }, async (error) => {
+        if (error) return next(error);
+        const token = jwt.sign(responseToSend, 'TOP_SECRET', {
+          expiresIn: '1d',
+        }); // token expiration of 1 day
+
+        responseToSend.token = token;
+        return res.json({
+          success: true,
+          message: info.message,
+          result: responseToSend,
+        });
       });
     } catch (error) {
       return next(error);
@@ -31,9 +77,7 @@ router.post('/signup/:person', async (req, res, next) => {
   passport.authenticate('signup', async (err, user, info) => {
     try {
       if (err || !user) {
-        console.log(err);
-        const error = new Error('Bad request');
-        return res.status(400).json({ error: error.message });
+        return res.status(400).json({ error: info.message });
       }
       const compte = user; //le compte est renvoyé par le middleware de passport dans la variable 'user'
 
@@ -74,7 +118,7 @@ router.post('/signup/:person', async (req, res, next) => {
 
       req.login(responseToSend, { session: false }, async (error) => {
         if (error) return next(error);
-        const token = jwt.sign({ user: responseToSend }, 'TOP_SECRET', {
+        const token = jwt.sign(responseToSend, 'TOP_SECRET', {
           expiresIn: '1d',
         }); // token expiration of 1 day
 
