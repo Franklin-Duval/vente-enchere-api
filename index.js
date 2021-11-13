@@ -4,6 +4,9 @@ const passport = require('passport');
 require('dotenv').config();
 const connection = require('./database/dbConnection');
 
+const swaggerUI = require('swagger-ui-express');
+const swaggerJsDoc = require('swagger-jsdoc');
+
 var imageRoutes = require('./routes/imagesRoutes');
 var categorieRoutes = require('./routes/gestionProduit/categorieRoutes');
 var lotRoutes = require('./routes/gestionProduit/lotRoutes');
@@ -15,6 +18,8 @@ var gerantRoutes = require('./routes/gestionCompte/gerantRoutes');
 var vendeurRoutes = require('./routes/gestionCompte/vendeurRoutes');
 var authRoutes = require('./routes/gestionCompte/authRoutes');
 var compteRoutes = require('./routes/gestionCompte/compteRoutes');
+
+var optionsSwagger = require('./swagger.json');
 
 require('./strategies/local');
 
@@ -28,6 +33,8 @@ connection();
 
 app.use(passport.initialize());
 
+const specs = swaggerJsDoc(optionsSwagger);
+app.use('/', swaggerUI.serve, swaggerUI.setup(specs));
 app.use('/api/auth', authRoutes);
 
 //  auth middleware: All routes below are protected

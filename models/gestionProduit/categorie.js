@@ -14,7 +14,6 @@ const CategorieSchema = new Schema({
   },
   dateCreation: {
     type: Date,
-    required: true,
     default: Date.now(),
   },
   dateModification: {

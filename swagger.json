@@ -1,0 +1,20 @@
+{
+  "definition": {
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Vente_enchere_api",
+      "version": "1.0.0",
+      "description": "Documentation de l'API de l'application web Vente aux enchère, pour le projet d'E-Commerce de l'année académique 2021/2022 - GI2022"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000"
+      }
+    ]
+  },
+  "apis": [
+    "./routes/gestionCompte/*",
+    "./routes/gestionProduit/*",
+    "./routes/imagesRoutes/*"
+  ]
+}
