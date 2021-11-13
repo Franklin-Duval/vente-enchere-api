@@ -33,6 +33,8 @@ connection();
 
 app.use(passport.initialize());
 
+const specs = swaggerJsDoc(optionsSwagger);
+app.use('/', swaggerUI.serve, swaggerUI.setup(specs));
 app.use('/api/auth', authRoutes);
 
 //  auth middleware: All routes below are protected
@@ -47,9 +49,6 @@ app.use('/api/commissaires', commissaireRoutes);
 app.use('/api/gerants', gerantRoutes);
 app.use('/api/vendeurs', vendeurRoutes);
 app.use('/api/comptes', compteRoutes);
-
-const specs = swaggerJsDoc(optionsSwagger);
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 
 app.listen(process.env.PORT, () => {
   console.log(`API listening at http://localhost:${process.env.PORT}`);
