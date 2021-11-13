@@ -25,9 +25,9 @@ passport.use(
         return done(null, false, { message: 'Mot de passe incorrect' });
       }
 
-      const user = await User.findOne({ compte: compte._id })
-        .populate('compte')
-        .then((user) => user);
+      const user = await User.findOne({ compte: compte._id }).then(
+        (user) => user,
+      );
       return done(null, user, { message: 'Connexion avec succès' });
     },
   ),
