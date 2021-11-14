@@ -38,7 +38,7 @@ app.get('/',function(req, res){
   res.header("Content-Type", "text/css")
 }, swaggerUI.serve, swaggerUI.setup(specs));// j'ai ajouté function(req, res){
   //res.header("Content-Type", "text/css")
-//} pour essayer de resoudre de le pb de mime
+//} pour essayer de resoudre le pb de mime
 
 app.use('/api/auth', authRoutes);
 
