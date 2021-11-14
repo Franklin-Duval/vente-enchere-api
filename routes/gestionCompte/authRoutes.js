@@ -78,7 +78,7 @@ router.post('/signup/:person', async (req, res, next) => {
       if (err || !user) {
         return res.status(401).json({
           success: false,
-          message: info.message,
+          message: info?.message || err?.message,
           result: undefined,
         });
       }
