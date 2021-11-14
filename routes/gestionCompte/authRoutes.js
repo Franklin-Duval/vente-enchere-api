@@ -92,7 +92,15 @@ router.post('/signup/:person', async (req, res, next) => {
         roles: req.body.roles,
         localisation: req.body.localisation,
         compte: compte._id,
-      }).then((user) => user);
+      })
+        .then((user) => user)
+        .catch((err) => {
+          return res.status(401).json({
+            success: false,
+            message: err?.message,
+            result: undefined,
+          });
+        });
 
       let responseToSend = {
         _id: undefined,
@@ -108,6 +116,12 @@ router.post('/signup/:person', async (req, res, next) => {
       if (req.params.person === 'client') {
         const newClient = await Client.create({
           user: newUser._id,
+        }).catch((err) => {
+          return res.status(401).json({
+            success: false,
+            message: err?.message,
+            result: undefined,
+          });
         });
         responseToSend._id = newClient._id;
       } else if (req.params.person === 'vendeur') {
@@ -115,6 +129,12 @@ router.post('/signup/:person', async (req, res, next) => {
           user: newUser._id,
           specialite: req.body.specialite,
           numeroCNI: req.body.numeroCNI,
+        }).catch((err) => {
+          return res.status(401).json({
+            success: false,
+            message: err?.message,
+            result: undefined,
+          });
         });
         responseToSend._id = newVendeur._id;
       }
