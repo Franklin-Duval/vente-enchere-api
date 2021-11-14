@@ -34,12 +34,7 @@ connection();
 app.use(passport.initialize());
 
 const specs = swaggerJsDoc(optionsSwagger);
-app.get('/',function(req, res){
-  res.header("Content-Type", "text/css")
-}, swaggerUI.serve, swaggerUI.setup(specs));// j'ai ajouté function(req, res){
-  //res.header("Content-Type", "text/css")
-//} pour essayer de resoudre le pb de mime
-
+app.get('/',swaggerUI.serve, swaggerUI.setup(specs));
 app.use('/api/auth', authRoutes);
 
 //  auth middleware: All routes below are protected
@@ -55,6 +50,6 @@ app.use('/api/gerants', gerantRoutes);
 app.use('/api/vendeurs', vendeurRoutes);
 app.use('/api/comptes', compteRoutes);
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(process.env.PORT, () => {
   console.log(`API listening at http://localhost:${process.env.PORT}`);
 });
