@@ -11,12 +11,11 @@ const router = express.Router();
 
 router.post('/signin', async (req, res, next) => {
   passport.authenticate('signin', async (err, user, info) => {
-    console.log(err, info);
     try {
       if (err || !user) {
-        return res.json({
+        return res.status(401).json({
           success: false,
-          info,
+          message: info.message,
           result: undefined,
         });
       }
@@ -77,7 +76,11 @@ router.post('/signup/:person', async (req, res, next) => {
   passport.authenticate('signup', async (err, user, info) => {
     try {
       if (err || !user) {
-        return res.status(400).json({ error: info.message });
+        return res.status(401).json({
+          success: false,
+          message: info.message,
+          result: undefined,
+        });
       }
       const compte = user; //le compte est renvoyé par le middleware de passport dans la variable 'user'
 
