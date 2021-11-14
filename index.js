@@ -34,7 +34,11 @@ connection();
 app.use(passport.initialize());
 
 const specs = swaggerJsDoc(optionsSwagger);
-app.get('/', swaggerUI.serve, swaggerUI.setup(specs));
+app.get('/',function(req, res){
+  res.header("Content-Type", "text/css")
+}, swaggerUI.serve, swaggerUI.setup(specs));// j'ai ajouté function(req, res){
+  //res.header("Content-Type", "text/css")
+//} pour essayer de resoudre de le pb de mime
 
 app.use('/api/auth', authRoutes);
 
