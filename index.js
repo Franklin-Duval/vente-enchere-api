@@ -34,7 +34,7 @@ connection();
 app.use(passport.initialize());
 
 const specs = swaggerJsDoc(optionsSwagger);
-app.get('/',swaggerUI.serve, swaggerUI.setup(specs));
+app.get('/api/docs',swaggerUI.serve, swaggerUI.setup(specs));
 app.use('/api/auth', authRoutes);
 
 //  auth middleware: All routes below are protected
