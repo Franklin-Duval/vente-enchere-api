@@ -23,6 +23,13 @@ passport.use(
       );
       if (!isValid) {
         return done(null, false, { message: 'Mot de passe incorrect' });
+      } else {
+        if (!compte.isActivated) {
+          return done(null, false, {
+            message:
+              "Votre compte n'est pas activé. Vérifiez vos adresses mails afin d'activer votre compte",
+          });
+        }
       }
 
       const user = await User.findOne({ compte: compte._id }).then(
