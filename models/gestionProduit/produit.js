@@ -35,7 +35,7 @@ const ProduitSchema = new Schema({
   },
   statut: {
     type: String,
-    required: true,
+    required: false,
   },
   dateCreation: {
     type: Date,

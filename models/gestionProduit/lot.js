@@ -17,7 +17,7 @@ const LotSchema = new Schema({
   },
   statut: {
     type: String,
-    required: true,
+    required: false,
   },
   prixMin: {
     type: String,
@@ -43,7 +43,7 @@ const LotSchema = new Schema({
   },
   dateReception: {
     type: Date,
-    required: true,
+    required: false,
   },
   dateRefus: {
     type: Date,
