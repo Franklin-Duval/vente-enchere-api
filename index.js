@@ -33,6 +33,8 @@ connection();
 
 app.use(passport.initialize());
 
+app.use(express.static(__dirname + '/public'));
+
 const specs = swaggerJsDoc(optionsSwagger);
 app.get('/api-docs',swaggerUI.serve, swaggerUI.setup(specs));
 
