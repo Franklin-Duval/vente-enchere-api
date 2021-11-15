@@ -1,11 +1,13 @@
 const express = require('express');
 const passport = require('passport');
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const User = require('../../models/gestionCompte/user');
 const Client = require('../../models/gestionCompte/client');
 const Vendeur = require('../../models/gestionCompte/vendeur');
 const Gerant = require('../../models/gestionCompte/gerant');
 const Commissaire = require('../../models/gestionCompte/commissaire');
+const MailJetService = require('../../services/mailjetService');
 
 const router = express.Router();
 
@@ -144,6 +146,14 @@ router.post('/signup/:person', async (req, res, next) => {
         const token = jwt.sign(responseToSend, 'TOP_SECRET', {
           expiresIn: '1d',
         }); // token expiration of 1 day
+
+        await MailJetService.sendValidationEmail(
+          {
+            Email: responseToSend.email,
+            Name: responseToSend.nom,
+          },
+          `${process.env.APP_URL}api/comptes/activate-compte/${responseToSend.compte}`,
+        );
 
         responseToSend.token = token;
         return res.json({
