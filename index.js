@@ -50,6 +50,8 @@ app.use('/api/gerants', gerantRoutes);
 app.use('/api/vendeurs', vendeurRoutes);
 app.use('/api/comptes', compteRoutes);
 
+app.use(express.static(__dirname + '/public'))
+
 app.listen(process.env.PORT, () => {
   console.log(`API listening at http://localhost:${process.env.PORT}`);
 });
