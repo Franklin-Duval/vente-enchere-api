@@ -17,7 +17,17 @@ const LotSchema = new Schema({
   },
   statut: {
     type: String,
-    required: false,
+    required: true,
+    enum: [
+      'en_attente_selection',
+      'en_attente_vente',
+      'refuse',
+      'rejete',
+      'en_vente',
+      'vendu',
+      'livre',
+      'retourne',
+    ],
   },
   prixMin: {
     type: String,

@@ -1,6 +1,6 @@
 const Lot = require('../../models/gestionProduit/lot');
 
-exports.getAllLot = (req, res, next) => {
+exports.getAllLot = (req, res) => {
   Lot.find({})
     .populate('produits')
     .then((lots) => {
@@ -20,7 +20,7 @@ exports.getAllLot = (req, res, next) => {
     });
 };
 
-exports.getOneLot = (req, res, next) => {
+exports.getOneLot = (req, res) => {
   Lot.findOne({ _id: req.params.id })
     .populate('produits')
     .then((lot) => {
@@ -40,20 +40,10 @@ exports.getOneLot = (req, res, next) => {
     });
 };
 
-exports.createLot = (req, res, next) => {
+exports.createLot = (req, res) => {
   const lot = new Lot({
-    prixFinalVente: req.body.prixFinalVente,
-    statut: req.body.statut,
-    prixMin: req.body.prixMin,
-    nonVendu: req.body.nonVendu,
-    dateMiseEnchere: req.body.dateMiseEnchere,
-    produits: req.body.produits,
-    commentaireRefus: req.body.commentaireRefus,
-    dateReception: req.body.dateReception,
-    dateRefus: req.body.dateRefus,
-    dateCreation: req.body.dateCreation,
-    dateModification: req.body.dateModification,
-    dateSuppression: req.body.dateSuppression,
+    numeroLot: Math.round(Math.random() * (999999 - 100000)), //generer un nombre entre 100,000 et 999,999
+    statut: 'en_attente_selection',
   });
 
   lot
@@ -75,22 +65,8 @@ exports.createLot = (req, res, next) => {
     });
 };
 
-exports.updateOneLot = (req, res, next) => {
-  const lot = new Lot({
-    _id: req.params.id,
-    prixFinalVente: req.body.prixFinalVente,
-    statut: req.body.statut,
-    prixMin: req.body.prixMin,
-    nonVendu: req.body.nonVendu,
-    dateMiseEnchere: req.body.dateMiseEnchere,
-    produits: req.body.produits,
-    commentaireRefus: req.body.commentaireRefus,
-    dateReception: req.body.dateReception,
-    dateRefus: req.body.dateRefus,
-    dateCreation: req.body.dateCreation,
-    dateModification: req.body.dateModification,
-    dateSuppression: req.body.dateSuppression,
-  });
+exports.updateOneLot = (req, res) => {
+  const lot = new Lot(req.body);
 
   Lot.updateOne({ _id: req.params.id }, lot)
     .then(() => {
@@ -110,7 +86,7 @@ exports.updateOneLot = (req, res, next) => {
     });
 };
 
-exports.deleteOneLot = (req, res, next) => {
+exports.deleteOneLot = (req, res) => {
   Lot.deleteOne({ _id: req.params.id })
     .then(() => {
       res.status(200).json({
