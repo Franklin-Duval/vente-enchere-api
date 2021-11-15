@@ -1,6 +1,6 @@
 const Produit = require('../../models/gestionProduit/produit');
 
-exports.getAllProduit = (req, res, next) => {
+exports.getAllProduit = (req, res) => {
   Produit.find({})
     .populate('vendeur') // to show vendeur object in the json response
     .populate('category') // to show category object in the json response
@@ -21,7 +21,7 @@ exports.getAllProduit = (req, res, next) => {
     });
 };
 
-exports.getOneProduit = (req, res, next) => {
+exports.getOneProduit = (req, res) => {
   Produit.findOne({ _id: req.params.id })
     .populate('vendeur') // to show vendeur object in the json response
     .populate('category') // to show category object in the json response
@@ -42,20 +42,8 @@ exports.getOneProduit = (req, res, next) => {
     });
 };
 
-exports.createProduit = (req, res, next) => {
-  const produit = new Produit({
-    nom: req.body.nom,
-    description: req.body.description,
-    prixMin: req.body.prixMin,
-    vendeur: req.body.vendeur,
-    category: req.body.category,
-    images: req.uploadedImages.map((value) => value._id),
-    estBio: req.body.estBio,
-    statut: req.body.statut,
-    dateCreation: req.body.dateCreation,
-    dateModification: req.body.dateModification,
-    dateSuppression: req.body.dateSuppression,
-  });
+exports.createProduit = (req, res) => {
+  const produit = new Produit(req.body);
 
   produit
     .save()
@@ -76,21 +64,8 @@ exports.createProduit = (req, res, next) => {
     });
 };
 
-exports.updateOneProduit = (req, res, next) => {
-  const produit = new Produit({
-    _id: req.params.id,
-    nom: req.body.nom,
-    description: req.body.description,
-    prixMin: req.body.prixMin,
-    vendeur: req.body.vendeur,
-    category: req.body.category,
-    images: req.uploadedImages.map((value) => value._id),
-    estBio: req.body.estBio,
-    statut: req.body.statut,
-    dateCreation: req.body.dateCreation,
-    dateModification: req.body.dateModification,
-    dateSuppression: req.body.dateSuppression,
-  });
+exports.updateOneProduit = (req, res) => {
+  const produit = new Produit(req.body);
 
   Produit.updateOne({ _id: req.params.id }, produit)
     .then(() => {
@@ -110,7 +85,7 @@ exports.updateOneProduit = (req, res, next) => {
     });
 };
 
-exports.deleteOneProduit = (req, res, next) => {
+exports.deleteOneProduit = (req, res) => {
   Produit.deleteOne({ _id: req.params.id })
     .then(() => {
       res.status(200).json({

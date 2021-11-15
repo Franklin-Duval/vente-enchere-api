@@ -10,15 +10,26 @@ const ProduitSchema = new Schema({
   },
   description: {
     type: String,
-    required: true,
+    required: false,
   },
   prixMin: {
-    type: String,
+    type: Number,
     required: false,
+  },
+  quantite: {
+    valeur: {
+      type: Number,
+      required: true,
+    },
+    unite: {
+      type: String,
+      required: true,
+    },
   },
   vendeur: {
     type: Schema.Types.ObjectId,
     ref: COLLECTIONS.VENDEURS,
+    required: true,
   },
   category: {
     type: Schema.Types.ObjectId,
