@@ -5,7 +5,18 @@
       "title": "Vente_enchere_api",
       "version": "1.0.0",
       "description": "Documentation de l'API de l'application web Vente aux enchère, pour le projet d'E-Commerce de l'année académique 2021/2022 - GI2022"
-    }
+    },
+    "host": "vente-enchere-api.herokuapp.com",
+    "basePath": "/",
+    "schemes": [
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ]
   },
   "apis": [
     "./routes/gestionCompte/*",
