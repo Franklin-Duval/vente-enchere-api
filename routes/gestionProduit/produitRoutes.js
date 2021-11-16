@@ -102,7 +102,9 @@ router.get('/', produitCtrl.getAllProduit);
  *       400:
  *         description: Une erreur s'est produite
  */
-router.post('/', imageMiddleware, produitCtrl.createProduit);
+router.post('/', produitCtrl.createProduit);
+
+router.put('/images/:id', imageMiddleware, produitCtrl.addImagesProduit);
 
 /**
  * @swagger

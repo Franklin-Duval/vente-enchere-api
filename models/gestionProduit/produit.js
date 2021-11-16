@@ -44,10 +44,6 @@ const ProduitSchema = new Schema({
     type: Boolean,
     required: true,
   },
-  statut: {
-    type: String,
-    required: false,
-  },
   dateCreation: {
     type: Date,
     default: Date.now(),
