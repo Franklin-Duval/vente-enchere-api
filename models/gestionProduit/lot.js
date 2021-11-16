@@ -30,7 +30,7 @@ const LotSchema = new Schema({
     ],
   },
   prixMin: {
-    type: String,
+    type: Number,
     required: false,
   },
   nonVendu: {

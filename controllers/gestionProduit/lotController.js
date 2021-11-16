@@ -44,6 +44,7 @@ exports.createLot = (req, res) => {
   const lot = new Lot({
     numeroLot: Math.round(Math.random() * (999999 - 100000)), //generer un nombre entre 100,000 et 999,999
     statut: 'en_attente_selection',
+    prixMin: 0,
   });
 
   lot
