@@ -57,8 +57,10 @@ exports.createProduit = (req, res) => {
   produit
     .save()
     .then(async (produit) => {
+      // ajouter le produit dans le lot
       const lot = await Lot.findOne({ _id: req.body.lotId });
       lot.produits.push(produit);
+      lot.prixMin = lot.prixMin + produit.prixMin || 0;
       lot.save();
 
       res.status(201).json({
