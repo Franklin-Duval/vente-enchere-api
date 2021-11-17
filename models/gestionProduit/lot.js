@@ -47,6 +47,10 @@ const LotSchema = new Schema({
       ref: COLLECTIONS.PRODUITS,
     },
   ],
+  vendeur: {
+    type: Schema.Types.ObjectId,
+    ref: COLLECTIONS.VENDEURS,
+  },
   commentaireRefus: {
     type: String,
     required: false,

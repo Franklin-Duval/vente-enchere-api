@@ -45,7 +45,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRoutes);
 
 //  auth middleware: All routes below are protected
-//app.use(passport.authenticate('jwt', { session: false }));
+//  app.use(passport.authenticate('jwt', { session: false }));
 
 app.use('/api/images', imageRoutes);
 app.use('/api/categories', categorieRoutes);

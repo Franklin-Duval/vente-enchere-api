@@ -30,7 +30,7 @@ const VendeurSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: COLLECTIONS.USERS,
-    required: true,
+    required: false,
     unique: true,
   },
   gerant: {
