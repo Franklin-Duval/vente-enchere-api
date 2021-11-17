@@ -189,7 +189,7 @@ router.delete('/:id', produitCtrl.deleteOneProduit);
  * @swagger
  * /api/produits/vendeur/{id}:
  *   get:
- *     summary: Retrouver les produits d'un utilisateur par son id
+ *     summary: Retrouver les produits d'un vendeur par son id
  *     tags: [Produit]
  *     parameters:
  *       - in: path
@@ -197,7 +197,7 @@ router.delete('/:id', produitCtrl.deleteOneProduit);
  *         schema:
  *           type: string
  *         required: true
- *         description: l'id de l'utilisateur
+ *         description: l'id du vendeur
  *     responses:
  *       200:
  *         description: Les produits ont été récuppérés avec succès
@@ -208,6 +208,6 @@ router.delete('/:id', produitCtrl.deleteOneProduit);
  *       400:
  *         description: Une erreur s'est produite
  */
-router.get('/vendeur/:id', produitCtrl.getAllProduitByUser);
+router.get('/vendeur/:id', produitCtrl.getAllProduitByVendeur);
 
 module.exports = router;

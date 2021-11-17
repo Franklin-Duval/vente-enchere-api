@@ -33,19 +33,17 @@ connection();
 
 app.use(passport.initialize());
 
-app.use(express.static(__dirname + '/public'));
-
 const specs = swaggerJsDoc(optionsSwagger);
-app.get('/api-docs',swaggerUI.serve, swaggerUI.setup(specs));
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 
-app.get('/', (req, res) => {
+app.use('/', (req, res) => {
   res.redirect('/api-docs');
 });
 
 app.use('/api/auth', authRoutes);
 
 //  auth middleware: All routes below are protected
-//  app.use(passport.authenticate('jwt', { session: false }));
+//app.use(passport.authenticate('jwt', { session: false }));
 
 app.use('/api/images', imageRoutes);
 app.use('/api/categories', categorieRoutes);

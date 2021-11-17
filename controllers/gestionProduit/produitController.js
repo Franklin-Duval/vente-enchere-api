@@ -139,7 +139,7 @@ exports.deleteOneProduit = (req, res) => {
     });
 };
 
-exports.getAllProduitByUser = (req, res, next) => {
+exports.getAllProduitByVendeur = (req, res, next) => {
   Produit.find({ vendeur: req.params.id })
     .populate('vendeur') // to show vendeur object in the json response
     .populate('category') // to show category object in the json response

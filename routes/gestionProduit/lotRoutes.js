@@ -180,4 +180,29 @@ router.put('/:id', lotCtrl.updateOneLot);
  */
 router.delete('/:id', lotCtrl.deleteOneLot);
 
+/**
+ * @swagger
+ * /api/lots/vendeur/{id}:
+ *   get:
+ *     summary: Retrouver les lots d'un vendeur par son id
+ *     tags: [Lot]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: l'id du vendeur
+ *     responses:
+ *       200:
+ *         description: Les lots ont été récuppérés avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/lot'
+ *       400:
+ *         description: Une erreur s'est produite
+ */
+router.get('/vendeur/:id', lotCtrl.getAllLotByVendeur);
+
 module.exports = router;
