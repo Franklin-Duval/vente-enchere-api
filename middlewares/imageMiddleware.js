@@ -25,6 +25,7 @@ router.use(async (req, res, next) => {
       }
     }
     if (uploadedImages.length == 0) {
+      req.uploadedImages = [];
       next();
     } else {
       req.uploadedImages = uploadedImages;
