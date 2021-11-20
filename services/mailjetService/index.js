@@ -24,7 +24,6 @@ const sendMailWithTemplateId = async (
   subject,
   variables = {},
 ) => {
-  console.log(sender, receivers, templateID, subject, variables);
   const request = mailJet.post('send', { version: 'v3.1' }).request({
     Messages: [
       {

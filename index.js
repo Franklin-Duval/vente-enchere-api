@@ -36,7 +36,7 @@ app.use(passport.initialize());
 app.use(express.static(__dirname + '/public'));
 
 const specs = swaggerJsDoc(optionsSwagger);
-app.get('/api-docs',swaggerUI.serve, swaggerUI.setup(specs));
+app.get('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 
 app.get('/', (req, res) => {
   res.redirect('/api-docs');
