@@ -8,15 +8,9 @@
     },
     "host": "vente-enchere-api.herokuapp.com",
     "basePath": "/",
-    "schemes": [
-        "https"
-    ],
-    "consumes": [
-        "application/json"
-    ],
-    "produces": [
-        "application/json"
-    ]
+    "schemes": ["https"],
+    "consumes": ["application/json"],
+    "produces": ["application/json"]
   },
   "apis": [
     "./routes/gestionCompte/*",

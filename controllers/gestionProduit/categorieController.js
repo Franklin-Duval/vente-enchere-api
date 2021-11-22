@@ -46,7 +46,6 @@ exports.createCategorie = (req, res, next) => {
     dateModification: req.body.dateModification,
     dateSuppression: req.body.dateSuppression,
   });
-
   categorie
     .save()
     .then(() => {

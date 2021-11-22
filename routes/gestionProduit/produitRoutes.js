@@ -185,4 +185,29 @@ router.put('/:id', imageMiddleware, produitCtrl.updateOneProduit);
  */
 router.delete('/:id', produitCtrl.deleteOneProduit);
 
+/**
+ * @swagger
+ * /api/produits/vendeur/{id}:
+ *   get:
+ *     summary: Retrouver les produits d'un vendeur par son id
+ *     tags: [Produit]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: l'id du vendeur
+ *     responses:
+ *       200:
+ *         description: Les produits ont été récuppérés avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/produit'
+ *       400:
+ *         description: Une erreur s'est produite
+ */
+router.get('/vendeur/:id', produitCtrl.getAllProduitByVendeur);
+
 module.exports = router;

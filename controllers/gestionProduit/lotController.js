@@ -44,6 +44,7 @@ exports.createLot = (req, res) => {
   const lot = new Lot({
     numeroLot: Math.round(Math.random() * (999999 - 100000)), //generer un nombre entre 100,000 et 999,999
     statut: 'en_attente_selection',
+    vendeur: req.body.vendeur,
     prixMin: 0,
   });
 
@@ -100,6 +101,27 @@ exports.deleteOneLot = (req, res) => {
       res.status(500).json({
         success: false,
         message: "Une erreur s'est produite",
+      });
+    });
+};
+
+exports.getAllLotByVendeur = (req, res, next) => {
+  Lot.find({ vendeur: req.params.id })
+    .populate('vendeur') // to show vendeur object in the json response
+    .populate('produits') // to show produits object in the json response
+    .then((produits) => {
+      res.status(200).json({
+        success: true,
+        message: 'Les produits ont été récuppérés avec succès',
+        result: produits,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(400).json({
+        success: false,
+        message: "Une erreur s'est produite",
+        result: undefined,
       });
     });
 };

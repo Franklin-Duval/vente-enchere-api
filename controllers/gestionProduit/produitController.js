@@ -138,3 +138,24 @@ exports.deleteOneProduit = (req, res) => {
       });
     });
 };
+
+exports.getAllProduitByVendeur = (req, res, next) => {
+  Produit.find({ vendeur: req.params.id })
+    .populate('vendeur') // to show vendeur object in the json response
+    .populate('category') // to show category object in the json response
+    .then((produits) => {
+      res.status(200).json({
+        success: true,
+        message: 'Les produits ont été récuppérés avec succès',
+        result: produits,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(400).json({
+        success: false,
+        message: "Une erreur s'est produite",
+        result: undefined,
+      });
+    });
+};
