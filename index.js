@@ -33,17 +33,10 @@ connection();
 
 app.use(passport.initialize());
 
-const specs = swaggerJsDoc(optionsSwagger);
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
-
-app.use('/', (req, res) => {
-  res.redirect('/api-docs');
-});
-
 app.use('/api/auth', authRoutes);
 
 //  auth middleware: All routes below are protected
-//app.use(passport.authenticate('jwt', { session: false }));
+//  app.use(passport.authenticate('jwt', { session: false }));
 
 app.use('/api/images', imageRoutes);
 app.use('/api/categories', categorieRoutes);
@@ -54,6 +47,13 @@ app.use('/api/commissaires', commissaireRoutes);
 app.use('/api/gerants', gerantRoutes);
 app.use('/api/vendeurs', vendeurRoutes);
 app.use('/api/comptes', compteRoutes);
+
+const specs = swaggerJsDoc(optionsSwagger);
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
+
+app.use('/', (req, res) => {
+  res.redirect('/api-docs');
+});
 
 app.listen(process.env.PORT, () => {
   console.log(`API listening at http://localhost:${process.env.PORT}`);
