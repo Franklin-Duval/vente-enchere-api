@@ -25,7 +25,8 @@ router.use(async (req, res, next) => {
       }
     }
     if (uploadedImages.length == 0) {
-      res.status(400).send('Aucune image: erreur');
+      req.uploadedImages = [];
+      next();
     } else {
       req.uploadedImages = uploadedImages;
       next();
