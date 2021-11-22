@@ -44,6 +44,14 @@ const UserSchema = new Schema({
     type: Array,
     required: true,
   },
+  numeroCompte: {
+    type: String,
+    required: false,
+  },
+  numeroMomo: {
+    type: String,
+    required: false,
+  },
   compte: {
     type: Schema.Types.ObjectId,
     ref: COLLECTIONS.COMPTES,
