@@ -60,7 +60,7 @@ router.get('/', categorieCtrl.getAllCategorie);
 
 /**
  * @swagger
- * /api/produits/:
+ * /api/categories/:
  *   post:
  *     summary: Creer une categorie
  *     tags: [Categorie]
