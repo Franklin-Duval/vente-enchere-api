@@ -1,4 +1,7 @@
 const Commissaire = require('../../models/gestionCompte/commissaire');
+const Compte = require('../../models/gestionCompte/compte');
+const User = require('../../models/gestionCompte/user');
+const EncryptionService = require('../../services/ecryptionService');
 
 exports.getAllCommissaire = (req, res) => {
   Commissaire.find({})
@@ -40,11 +43,47 @@ exports.getOneCommissaire = (req, res) => {
     });
 };
 
-exports.createCommissaire = (req, res) => {
-  const { nombreEnchereOrganisee, user } = req.body;
+exports.createCommissaire = async (req, res) => {
+  // to create a commissaire, we create 'compte', 'user' and 'commissaire'
+  const hashedPassword = await EncryptionService.hashPassword(
+    req.body.password,
+  );
+  const compte = await Compte.create({
+    email: req.body.email,
+    password: hashedPassword,
+    isActivated: true,
+  })
+    .then((compte) => compte)
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json({
+        success: false,
+        message: err?.message,
+        result: undefined,
+      });
+    });
+
+  const newUser = await User.create({
+    nom: req.body.nom,
+    prenom: req.body.prenom,
+    telephone: req.body.telephone,
+    email: req.body.email,
+    roles: req.body.roles,
+    localisation: req.body.localisation,
+    compte: compte._id,
+  })
+    .then((user) => user)
+    .catch((err) => {
+      return res.status(400).json({
+        success: false,
+        message: err?.message,
+        result: undefined,
+      });
+    });
+
   const commissaire = new Commissaire({
-    nombreEnchereOrganisee,
-    user,
+    nombreEnchereOrganisee: 0,
+    user: newUser,
   });
 
   commissaire
