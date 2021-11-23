@@ -1,4 +1,7 @@
 const Gerant = require('../../models/gestionCompte/gerant');
+const Compte = require('../../models/gestionCompte/compte');
+const User = require('../../models/gestionCompte/user');
+const EncryptionService = require('../../services/ecryptionService');
 
 exports.getAllGerant = (req, res) => {
   Gerant.find({})
@@ -40,11 +43,47 @@ exports.getOneGerant = (req, res) => {
     });
 };
 
-exports.createGerant = (req, res) => {
-  const { nombreAccreditation, user } = req.body;
+exports.createGerant = async (req, res) => {
+  // to create a gérant, we create 'compte', 'user' and 'gerant'
+  const hashedPassword = await EncryptionService.hashPassword(
+    req.body.password,
+  );
+  const compte = await Compte.create({
+    email: req.body.email,
+    password: hashedPassword,
+    isActivated: true,
+  })
+    .then((compte) => compte)
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json({
+        success: false,
+        message: err?.message,
+        result: undefined,
+      });
+    });
+
+  const newUser = await User.create({
+    nom: req.body.nom,
+    prenom: req.body.prenom,
+    telephone: req.body.telephone,
+    email: req.body.email,
+    roles: req.body.roles,
+    localisation: req.body.localisation,
+    compte: compte._id,
+  })
+    .then((user) => user)
+    .catch((err) => {
+      return res.status(400).json({
+        success: false,
+        message: err?.message,
+        result: undefined,
+      });
+    });
+
   const gerant = new Gerant({
-    nombreAccreditation,
-    user,
+    nombreAccreditation: 0,
+    user: newUser,
   });
 
   gerant
