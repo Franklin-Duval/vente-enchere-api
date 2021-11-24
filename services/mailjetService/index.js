@@ -4,7 +4,6 @@ const mailJet = require('node-mailjet').connect(
 );
 
 exports.sendValidationEmail = async (receiver, activationLink) => {
-  console.log(activationLink);
   return await sendMailWithTemplateId(
     undefined,
     [receiver],

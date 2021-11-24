@@ -152,7 +152,7 @@ router.post('/signup/:person', async (req, res, next) => {
             Email: responseToSend.email,
             Name: responseToSend.nom,
           },
-          `${process.env.APP_URL}api/comptes/activate-compte/${responseToSend.compte}`,
+          `${process.env.APP_URL}api/comptes/activate-compte/${responseToSend.compte}?appUrl=${process.env.FRONTAPP_URL}`,
         );
 
         responseToSend.token = token;
