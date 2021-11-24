@@ -8,7 +8,7 @@ exports.sendValidationEmail = async (receiver, activationLink) => {
   return await sendMailWithTemplateId(
     undefined,
     [receiver],
-    3325308,
+    3364634,
     'Bienvenue sur Agric Auctions',
     { activationLink },
   );
