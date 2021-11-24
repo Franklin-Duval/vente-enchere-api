@@ -88,13 +88,18 @@ exports.updateOneCompte = (req, res) => {
 };
 
 exports.activateCompte = (req, res) => {
+  const appUrl = req.query.appUrl;
   Compte.updateOne({ _id: req.params.id }, { isActivated: true })
     .then(() => {
-      res.status(200).json({
-        success: true,
-        massage: 'Le compte a été activé avec succès',
-        result: true,
-      });
+      if (appUrl) {
+        res.status(200).redirect(appUrl);
+      } else {
+        res.status(200).json({
+          success: true,
+          massage: 'Le compte a été activé avec succès',
+          result: true,
+        });
+      }
     })
     .catch((error) => {
       console.log(error);
