@@ -160,10 +160,10 @@ router.put('/:id', categorieCtrl.updateOneCategorie);
  */
 router.delete('/:id', categorieCtrl.deleteOneCategorie);
 
-router.get('/', categorieCtrl.getAllCategorie);
+/*router.get('/', categorieCtrl.getAllCategorie);
 router.post('/', categorieCtrl.createCategorie);
 router.get('/:id', categorieCtrl.getOneCategorie);
 router.put('/:id', categorieCtrl.updateOneCategorie);
-router.delete('/:id', categorieCtrl.deleteOneCategorie);
+router.delete('/:id', categorieCtrl.deleteOneCategorie);*/
 
 module.exports = router;

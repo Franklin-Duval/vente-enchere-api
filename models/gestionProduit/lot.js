@@ -27,6 +27,7 @@ const LotSchema = new Schema({
       'vendu',
       'livre',
       'retourne',
+      'valide',
     ],
   },
   prixMin: {
