@@ -129,7 +129,7 @@ router.get('/:id', lotCtrl.getOneLot);
 
 /**
  * @swagger
- * /api/lot/{id}:
+ * /api/lots/{id}:
  *  put:
  *    summary: Mettre à jour le lot par son Id
  *    tags: [Lot]
@@ -204,5 +204,30 @@ router.delete('/:id', lotCtrl.deleteOneLot);
  *         description: Une erreur s'est produite
  */
 router.get('/vendeur/:id', lotCtrl.getAllLotByVendeur);
+
+/**
+ * @swagger
+ * /api/lots/produit/{id}:
+ *   get:
+ *     summary: Retrouver les lots contenant un produit par son id
+ *     tags: [Lot]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: l'id du produit
+ *     responses:
+ *       200:
+ *         description: Les lots ont été récuppérés avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/lot'
+ *       400:
+ *         description: Une erreur s'est produite
+ */
+router.get('/produit/:id', lotCtrl.getAllLotByProduit);
 
 module.exports = router;
