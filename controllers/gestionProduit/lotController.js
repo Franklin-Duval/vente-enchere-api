@@ -46,7 +46,6 @@ exports.createLot = (req, res) => {
     numeroLot: Math.round(Math.random() * (999999 - 100000)), //generer un nombre entre 100,000 et 999,999
     statut: 'en_attente_selection',
     vendeur: req.body.vendeur,
-
     prixMin: 0,
   });
 
