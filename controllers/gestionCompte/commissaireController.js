@@ -106,14 +106,8 @@ exports.createCommissaire = async (req, res) => {
 };
 
 exports.updateOneCommissaire = (req, res) => {
-  const commissaire = new Commissaire({
-    _id: req.params.id,
-    nombreEnchereOrganisee: req.body.nombreEnchereOrganisee,
-    user: req.body.user,
-  });
-
-  Commissaire.updateOne({ _id: req.params.id }, commissaire)
-    .then(() => {
+  Commissaire.updateOne({ _id: req.params.id }, req.body)
+    .then((commissaire) => {
       res.status(200).json({
         success: true,
         message: 'Le commissaire priseur a été modifié avec succès',

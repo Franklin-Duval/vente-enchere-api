@@ -63,25 +63,7 @@ exports.createClient = (req, res) => {
 };
 
 exports.updateOneClient = (req, res) => {
-  const client = new Client({
-    _id: req.params.id,
-    nom: req.body.nom,
-    prenom: req.body.prenom,
-    adresse: req.body.adresse,
-    pays: req.body.pays,
-    ville: req.body.ville,
-    email: req.body.email,
-    telephone: req.body.telephone,
-    pseudo: req.body.pseudo,
-    password: req.body.password,
-    numeroCompte: req.body.numeroCompte,
-    numeroMomo: req.body.numeroMomo,
-    nombreProduitsAchetes: req.body.nombreProduitsAchetes,
-    totalArgentDepense: req.body.totalArgentDepense,
-    dateAjout: req.body.dateAjout,
-  });
-
-  Client.updateOne({ _id: req.params.id }, client)
+  Client.updateOne({ _id: req.params.id }, req.body)
     .then(() => {
       res.status(200).json({
         success: true,

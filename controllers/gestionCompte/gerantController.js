@@ -106,14 +106,8 @@ exports.createGerant = async (req, res) => {
 };
 
 exports.updateOneGerant = (req, res) => {
-  const gerant = new Gerant({
-    _id: req.params.id,
-    nombreAccreditation: req.body.nombreAccreditation,
-    user: req.body.user,
-  });
-
-  Gerant.updateOne({ _id: req.params.id }, gerant)
-    .then(() => {
+  Gerant.updateOne({ _id: req.params.id }, req.body)
+    .then((gerant) => {
       res.status(200).json({
         success: true,
         message: 'Le gerant a été modifié avec succès',

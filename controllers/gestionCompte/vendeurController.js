@@ -1,6 +1,6 @@
 const Vendeur = require('../../models/gestionCompte/vendeur');
 
-exports.getAllVendeur = (req, res, next) => {
+exports.getAllVendeur = (req, res) => {
   Vendeur.find({})
     .populate('user')
     .then((vendeurs) => {
@@ -20,7 +20,7 @@ exports.getAllVendeur = (req, res, next) => {
     });
 };
 
-exports.getOneVendeur = (req, res, next) => {
+exports.getOneVendeur = (req, res) => {
   Vendeur.findOne({ _id: req.params.id })
     .populate('user')
     .then((vendeur) => {
@@ -40,7 +40,7 @@ exports.getOneVendeur = (req, res, next) => {
     });
 };
 
-exports.createVendeur = (req, res, next) => {
+exports.createVendeur = (req, res) => {
   const {
     accreditation,
     numeroCNI,
@@ -79,19 +79,8 @@ exports.createVendeur = (req, res, next) => {
     });
 };
 
-exports.updateOneVendeur = (req, res, next) => {
-  const vendeur = new Vendeur({
-    _id: req.params.id,
-    user: req.body.user,
-    accreditation: req.body.accreditation,
-    numeroCNI: req.body.numeroCNI,
-    specialite: req.body.specialite,
-    chiffreAffaire: req.body.chiffreAffaire,
-    nombreLotsVendu: req.body.nombreLotsVendu,
-    gerant: req.body.gerant,
-  });
-
-  Vendeur.updateOne({ _id: req.params.id }, vendeur)
+exports.updateOneVendeur = (req, res) => {
+  Vendeur.updateOne({ _id: req.params.id }, req.body)
     .then(() => {
       res.status(200).json({
         success: true,
@@ -109,7 +98,7 @@ exports.updateOneVendeur = (req, res, next) => {
     });
 };
 
-exports.deleteOneVendeur = (req, res, next) => {
+exports.deleteOneVendeur = (req, res) => {
   Vendeur.deleteOne({ _id: req.params.id })
     .then(() => {
       res.status(200).json({

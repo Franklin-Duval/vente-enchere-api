@@ -1,7 +1,7 @@
 const Compte = require('../../models/gestionCompte/compte');
 const EncryptionService = require('../../services/ecryptionService/index');
 
-exports.getAllCompte = (req, res, next) => {
+exports.getAllCompte = (req, res) => {
   Compte.find({})
     .then((comptes) => {
       res.status(200).json({
@@ -20,7 +20,7 @@ exports.getAllCompte = (req, res, next) => {
     });
 };
 
-exports.getOneCompte = (req, res, next) => {
+exports.getOneCompte = (req, res) => {
   Compte.findOne({ _id: req.params.id })
     .then((compte) => {
       res.status(200).json({
@@ -39,7 +39,7 @@ exports.getOneCompte = (req, res, next) => {
     });
 };
 
-exports.createCompte = async (req, res, next) => {
+exports.createCompte = async (req, res) => {
   const password = await EncryptionService.hashPassword(req.body.password);
   const compte = new Compte({
     email: req.body.email,
@@ -66,10 +66,7 @@ exports.createCompte = async (req, res, next) => {
 };
 
 exports.updateOneCompte = (req, res) => {
-  Compte.updateOne(
-    { _id: req.params.id },
-    { email: req.body.email, isActivated: false },
-  )
+  Compte.updateOne({ _id: req.params.id }, req.body)
     .then((compte) => {
       res.status(200).json({
         success: true,
@@ -111,7 +108,7 @@ exports.activateCompte = (req, res) => {
     });
 };
 
-exports.changePassword = async (req, res, next) => {
+exports.changePassword = async (req, res) => {
   Compte.findOne({ _id: req.params.id })
     .then(async (compte) => {
       const isValid = await EncryptionService.comparePassword(
@@ -157,7 +154,7 @@ exports.changePassword = async (req, res, next) => {
     });
 };
 
-exports.deleteOneCompte = (req, res, next) => {
+exports.deleteOneCompte = (req, res) => {
   Compte.deleteOne({ _id: req.params.id })
     .then(() => {
       res.status(200).json({

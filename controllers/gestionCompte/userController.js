@@ -63,7 +63,7 @@ exports.createUser = (req, res) => {
 
 exports.updateOneUser = (req, res) => {
   User.updateOne({ _id: req.params.id }, req.body)
-    .then(() => {
+    .then((user) => {
       res.status(200).json({
         success: true,
         message: 'Le user a été modifié avec succès',
