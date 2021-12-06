@@ -81,7 +81,7 @@ exports.createVendeur = (req, res) => {
 
 exports.updateOneVendeur = (req, res) => {
   Vendeur.updateOne({ _id: req.params.id }, req.body)
-    .then(() => {
+    .then((vendeur) => {
       res.status(200).json({
         success: true,
         message: 'Le vendeur a été modifié avec succès',

@@ -64,7 +64,7 @@ exports.createClient = (req, res) => {
 
 exports.updateOneClient = (req, res) => {
   Client.updateOne({ _id: req.params.id }, req.body)
-    .then(() => {
+    .then((client) => {
       res.status(200).json({
         success: true,
         message: 'Le client a été modifié avec succès',
