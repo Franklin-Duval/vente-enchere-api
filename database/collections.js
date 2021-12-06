@@ -8,6 +8,10 @@ const COLLECTIONS = {
   COMMISSAIREPRISEUR: 'commissairepriseurs',
   GERANTS: 'gerants',
   COMPTES: 'comptes',
+  FEEDBACKS: 'feedbacks',
+  RAPPEL: 'rappel',
+  SALLEENCHERE: 'salleenchere',
+  COMMENTAIRE: 'commentaire',
 };
 
 module.exports = COLLECTIONS;

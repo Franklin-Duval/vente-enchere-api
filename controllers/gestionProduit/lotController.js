@@ -69,7 +69,7 @@ exports.createLot = (req, res) => {
 };
 
 exports.updateOneLot = (req, res) => {
-  Lot.findOneAndUpdate({ _id: req.params.id }, req.body)
+  Lot.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
     .then((lot) => {
       res.status(200).json({
         success: true,
