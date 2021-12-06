@@ -3,7 +3,7 @@ const COLLECTIONS = require('../../database/collections');
 
 const Schema = mongoose.Schema;
 
-const ClientSchema = new Schema({
+const ClientSchema = new Schema({ 
   produitsAchetes: [
     {
       type: Schema.Types.ObjectId,
