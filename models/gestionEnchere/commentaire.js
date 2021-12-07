@@ -4,7 +4,7 @@ const COLLECTIONS = require('../../database/collections');
 const Schema = mongoose.Schema;
 
 const CommentaireSchema = new Schema({
-  data: {
+  content: {
     type: String,
     required: true,
   },
