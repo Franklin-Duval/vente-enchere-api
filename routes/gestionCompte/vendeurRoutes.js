@@ -35,8 +35,7 @@ const vendeurCtrl = require('../../controllers/gestionvendeur/vendeurController'
  *         gerant:
  *           type: string
  *           description: Id du gerant du vendeur
- * 
- * 
+ *
  */
 
 /**
