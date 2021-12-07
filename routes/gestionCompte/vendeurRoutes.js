@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const vendeurCtrl = require('../../controllers/gestionvendeur/vendeurController');
+const vendeurCtrl = require('../../controllers/gestionCompte/vendeurController');
 
 /**
  * @swagger
