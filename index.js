@@ -18,6 +18,12 @@ var gerantRoutes = require('./routes/gestionCompte/gerantRoutes');
 var vendeurRoutes = require('./routes/gestionCompte/vendeurRoutes');
 var authRoutes = require('./routes/gestionCompte/authRoutes');
 var compteRoutes = require('./routes/gestionCompte/compteRoutes');
+var clientRoutes = require('./routes/gestionCompte/clientRoutes');
+
+var commentaireRoutes = require('./routes/gestionEnchere/commentaireRoutes');
+var feedbackRoutes = require('./routes/gestionEnchere/feedbackRoutes');
+var rappelRoutes = require('./routes/gestionEnchere/rappelRoutes');
+var salleEnchereRoutes = require('./routes/gestionEnchere/salleEnchereRoutes');
 
 var optionsSwagger = require('./swagger.json');
 
@@ -42,11 +48,16 @@ app.use('/api/images', imageRoutes);
 app.use('/api/categories', categorieRoutes);
 app.use('/api/lots', lotRoutes);
 app.use('/api/produits', produitRoutes);
+app.use('/api/clients', clientRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/commissaires', commissaireRoutes);
 app.use('/api/gerants', gerantRoutes);
 app.use('/api/vendeurs', vendeurRoutes);
 app.use('/api/comptes', compteRoutes);
+app.use('/api/commentaires', commentaireRoutes);
+app.use('/api/feedbacks', feedbackRoutes);
+app.use('/api/rappels', rappelRoutes);
+app.use('/api/salleEncheres', salleEnchereRoutes);
 
 const specs = swaggerJsDoc(optionsSwagger);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
