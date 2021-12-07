@@ -46,7 +46,7 @@ const vendeurCtrl = require('../../controllers/gestionCompte/vendeurController')
  */
 /**
  * @swagger
- * /api/vendeurs/:
+ * /api/vendeur/:
  *   get:
  *     summary: Retourne une liste de tout les vendeurs
  *     tags: [Vendeur]
@@ -65,7 +65,7 @@ const vendeurCtrl = require('../../controllers/gestionCompte/vendeurController')
 router.get('/', vendeurCtrl.getAllVendeur);
 /**
  * @swagger
- * /api/produits/:
+ * /api/vendeur/:
  *   post:
  *     summary: Creer un vendeur
  *     tags: [Vendeur]
@@ -88,7 +88,7 @@ router.get('/', vendeurCtrl.getAllVendeur);
 router.post('/', vendeurCtrl.createVendeur);
 /**
  * @swagger
- * /api/vendeurs/{id}:
+ * /api/vendeur/{id}:
  *   get:
  *     summary: Retrouver un vendeur par son Id
  *     tags: [Vendeur]
@@ -142,7 +142,7 @@ router.get('/:id', vendeurCtrl.getOneVendeur);
 router.put('/:id', vendeurCtrl.updateOneVendeur);
 /**
  * @swagger
- * /api/vendeurs/{id}:
+ * /api/vendeur/{id}:
  *   delete:
  *     summary: Supprimer un vendeur par son Id
  *     tags: [Vendeur]

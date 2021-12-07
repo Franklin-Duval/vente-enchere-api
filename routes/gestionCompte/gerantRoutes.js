@@ -17,7 +17,7 @@ const gerantCtrl = require('../../controllers/gestionCompte/gerantController');
  *         user:
  *           type: string
  *           description: L'utilisateur auquel correspond le gerant
- * 
+ *
  */
 /**
  * @swagger
@@ -28,7 +28,7 @@ const gerantCtrl = require('../../controllers/gestionCompte/gerantController');
 
 /**
  * @swagger
- * /api/gerants/:
+ * /api/gerant/:
  *   get:
  *     summary: Retourne une liste de tout les gerants
  *     tags: [Gerant]
@@ -47,7 +47,7 @@ const gerantCtrl = require('../../controllers/gestionCompte/gerantController');
 router.get('/', gerantCtrl.getAllGerant);
 /**
  * @swagger
- * /api/produits/:
+ * /api/gerant/:
  *   post:
  *     summary: Creer un gerant
  *     tags: [Gerant]
@@ -70,7 +70,7 @@ router.get('/', gerantCtrl.getAllGerant);
 router.post('/', gerantCtrl.createGerant);
 /**
  * @swagger
- * /api/gerants/{id}:
+ * /api/gerant/{id}:
  *   get:
  *     summary: Retrouver un gerant par son Id
  *     tags: [Gerant]
@@ -124,7 +124,7 @@ router.get('/:id', gerantCtrl.getOneGerant);
 router.put('/:id', gerantCtrl.updateOneGerant);
 /**
  * @swagger
- * /api/gerants/{id}:
+ * /api/gerant/{id}:
  *   delete:
  *     summary: Supprimer un gerant par son Id
  *     tags: [Gerant]
