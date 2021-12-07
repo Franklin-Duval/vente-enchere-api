@@ -147,10 +147,10 @@ router.post('/', userCtrl.createUser);
 router.get('/:id', userCtrl.getOneUser);
 /**
  * @swagger
- * /api/produit/{id}:
+ * /api/user/{id}:
  *  put:
  *    summary: Mettre à jour l'utilisateur par son Id
- *    tags: [Produit]
+ *    tags: [User]
  *    parameters:
  *      - in: path
  *        name: id

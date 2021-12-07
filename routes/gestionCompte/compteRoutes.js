@@ -99,7 +99,7 @@ router.post('/', compteCtrl.createCompte);
 router.get('/:id', compteCtrl.getOneCompte);
 /**
  * @swagger
- * /api/produit/{id}:
+ * /api/compte/{id}:
  *  put:
  *    summary: Mettre à jour le compte par son Id
  *    tags: [Compte]
@@ -128,12 +128,63 @@ router.get('/:id', compteCtrl.getOneCompte);
  */
 
 router.put('/:id', compteCtrl.updateOneCompte);
-
+/**
+ * @swagger
+ * /api/comptes/activate-compte/{id}:
+ *   get:
+ *     summary: Retrouver un compte par son Id parmi les comptes actifs uniquement
+ *     tags: [Compte]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: l'id du compte actif
+ *     responses:
+ *       200:
+ *         description: Le compte actif a été récupéré avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Compte'
+ *       400:
+ *         description: Une erreur s'est produite
+ */
 router.get('/activate-compte/:id', compteCtrl.activateCompte);
+/**
+ * @swagger
+ * /api/compte/change-password/{id}:
+ *  put:
+ *    summary: Mettre à jour le mot de pas d'un compte par son Id
+ *    tags: [Compte]
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: L'id du compte
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Compte'
+ *    responses:
+ *      200:
+ *        description: Le mot de passe du compte a été modifié  avec succès
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Compte'
+ *      400:
+ *        description: Une erreur s'est produite
+ */
 router.put('/change-password/:id', compteCtrl.changePassword);
 /**
  * @swagger
- * /api/produits/{id}:
+ * /api/comptes/{id}:
  *   delete:
  *     summary: Supprimer un compte par son Id
  *     tags: [Compte]
