@@ -1,4 +1,5 @@
 const SalleEnchere = require('../../models/gestionEnchere/salleEnchere');
+const mongoose = require('mongoose');
 
 exports.getAllSalleEnchere = (req, res, next) => {
   SalleEnchere.find({})
@@ -64,6 +65,25 @@ exports.createSalleEnchere = (req, res, next) => {
     });
 };
 
+exports.getAllSalleEnchereByLot = (req, res, next) => {
+  SalleEnchere.find({ lots: mongoose.Types.ObjectId(req.params.id) })
+    .then((salleEncheres) => {
+      res.status(200).json({
+        success: true,
+        message: 'Les salles enchères ont été récuppérés avec succès',
+        result: salleEncheres,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(400).json({
+        success: false,
+        message: "Une erreur s'est produite",
+        result: undefined,
+      });
+    });
+};
+
 exports.updateOneSalleEnchere = (req, res) => {
   SalleEnchere.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
     .then((salleEnchere) => {
@@ -96,6 +116,25 @@ exports.deleteOneSalleEnchere = (req, res, next) => {
       res.status(500).json({
         success: false,
         message: "Une erreur s'est produite",
+      });
+    });
+};
+
+exports.getAllSalleEnchereBeforeSpecificDate = (req, res, next) => {
+  SalleEnchere.find({ dateOuverture: { $gte: Date(Date.now()) } })
+    .then((salleEncheres) => {
+      res.status(200).json({
+        success: true,
+        message: 'Les salles enchères ont été récuppérés avec succès',
+        result: salleEncheres,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(400).json({
+        success: false,
+        message: "Une erreur s'est produite",
+        result: undefined,
       });
     });
 };

@@ -5,7 +5,12 @@ const salleEnchereCtrl = require('../../controllers/gestionEnchere/salleEnchereC
 
 router.get('/', salleEnchereCtrl.getAllSalleEnchere);
 router.post('/', salleEnchereCtrl.createSalleEnchere);
+router.get(
+  '/inProgress/',
+  salleEnchereCtrl.getAllSalleEnchereBeforeSpecificDate,
+);
 router.get('/:id', salleEnchereCtrl.getOneSalleEnchere);
+router.get('/lots/:id', salleEnchereCtrl.getAllSalleEnchereByLot);
 router.put('/:id', salleEnchereCtrl.updateOneSalleEnchere);
 router.delete('/:id', salleEnchereCtrl.deleteOneSalleEnchere);
 

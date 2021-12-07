@@ -4,6 +4,12 @@ const COLLECTIONS = require('../../database/collections');
 const Schema = mongoose.Schema;
 
 const SalleEnchereSchema = new Schema({
+  lots: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: COLLECTIONS.LOTS,
+    },
+  ],
   dateOuverture: {
     type: Date,
     required: true,
@@ -15,7 +21,7 @@ const SalleEnchereSchema = new Schema({
   statut: {
     type: String,
     required: true,
-    enum: ['en_cours', 'en_attente', 'termine'],
+    enum: ['en_cours', 'termine'],
   },
 });
 
