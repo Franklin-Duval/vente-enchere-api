@@ -7,7 +7,7 @@ const userCtrl = require('../../controllers/gestionCompte/userController');
  * @swagger
  * components:
  *   schemas:
- *     user:
+ *     User:
  *       type: object
  *       required:
  *         - nom
@@ -75,7 +75,7 @@ const userCtrl = require('../../controllers/gestionCompte/userController');
 /**
  * @swagger
  * tags:
- *   name: user
+ *   name: User
  *   description: Routes de l'API pour la gestion des utilisateurs
  */
 
