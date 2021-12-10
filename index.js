@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const passport = require('passport');
 require('dotenv').config();
+const { Server } = require('socket.io');
+const { createServer } = require('http');
 const connection = require('./database/dbConnection');
 
 const swaggerUI = require('swagger-ui-express');
@@ -24,6 +26,35 @@ var optionsSwagger = require('./swagger.json');
 require('./strategies/local');
 
 const app = express();
+
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+  cors: {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST'],
+  },
+});
+
+io.on('connection', (socket) => {
+  console.log(`User Connected: ${socket.id}`);
+  console.log(socket.rooms, '--1--');
+
+  socket.on('join_room', async (data) => {
+    socket.join(data);
+    console.log(`--> User with ID: ${socket.id} joined room: ${data}`);
+
+    const num = await socket.in(data).allSockets();
+    io.to(data).emit('count_clients', [...num]);
+  });
+
+  socket.on('send_message', (data) => {
+    socket.to(data.room).emit('receive_message', data);
+  });
+
+  socket.on('disconnect', async () => {
+    console.log('User Disconnected', socket.id);
+  });
+});
 
 app.use(express.json());
 app.use(cors());
@@ -55,6 +86,6 @@ app.use('/', (req, res) => {
   res.redirect('/api-docs');
 });
 
-app.listen(process.env.PORT, () => {
+httpServer.listen(process.env.PORT, () => {
   console.log(`API listening at http://localhost:${process.env.PORT}`);
 });
