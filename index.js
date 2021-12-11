@@ -51,6 +51,10 @@ io.on('connection', (socket) => {
     socket.to(data.room).emit('receive_message', data);
   });
 
+  socket.on('send_bid', (data) => {
+    socket.to(data.room).emit('receive_bid', data);
+  });
+
   socket.on('disconnect', async () => {
     console.log('User Disconnected', socket.id);
   });
