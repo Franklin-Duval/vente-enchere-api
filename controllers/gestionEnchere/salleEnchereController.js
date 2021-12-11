@@ -1,4 +1,7 @@
 const SalleEnchere = require('../../models/gestionEnchere/salleEnchere');
+const Lot = require('../../models/gestionProduit/lot');
+const Produit = require('../../models/gestionProduit/produit');
+
 const mongoose = require('mongoose');
 
 exports.getAllSalleEnchere = (req, res, next) => {
@@ -127,6 +130,58 @@ exports.getAllSalleEnchereBeforeSpecificDate = (req, res, next) => {
         success: true,
         message: 'Les salles enchères ont été récuppérés avec succès',
         result: salleEncheres,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(400).json({
+        success: false,
+        message: "Une erreur s'est produite",
+        result: undefined,
+      });
+    });
+};
+
+exports.getAllProduitsInSalleEnchere = async (req, res, next) => {
+  let arrayProduitsIDs = [];
+
+  const salles = await SalleEnchere.findOne({ _id: req.params.id });
+  const lots = await Lot.find({ _id: { $in: salles.lots } });
+
+  arrayProduitsIDs = lots.map((lot) => lot.produits);
+  arrayProduitsIDs = [].concat.apply([], arrayProduitsIDs);
+
+  Produit.find({ _id: { $in: arrayProduitsIDs } })
+    .then((produits) => {
+      res.status(200).json({
+        success: true,
+        message: 'Les produits ont été récuppérés avec succès',
+        result: produits,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(400).json({
+        success: false,
+        message: "Une erreur s'est produite",
+        result: undefined,
+      });
+    });
+};
+
+exports.getSalleEnchereByProduitID = async (req, res, next) => {
+  const lotArrays = await Lot.find({
+    produits: mongoose.Types.ObjectId(req.params.id),
+  });
+
+  let lotID = lotArrays[0]._id;
+
+  SalleEnchere.find({ lots: lotID })
+    .then((salleEnchere) => {
+      res.status(200).json({
+        success: true,
+        message: 'Les salles enchères ont été récuppérés avec succès',
+        result: salleEnchere,
       });
     })
     .catch((error) => {

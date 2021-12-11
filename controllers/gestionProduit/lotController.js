@@ -126,6 +126,7 @@ exports.getAllLotByVendeur = (req, res, next) => {
 };
 
 exports.getAllLotByProduit = (req, res, next) => {
+  console.log(req.params.id);
   Lot.find({ produits: mongoose.Types.ObjectId(req.params.id) })
     .populate('vendeur') // to show vendeur object in the json response
     .populate('produits') // to show produits object in the json response
