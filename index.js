@@ -24,6 +24,7 @@ var commentaireRoutes = require('./routes/gestionEnchere/commentaireRoutes');
 var feedbackRoutes = require('./routes/gestionEnchere/feedbackRoutes');
 var rappelRoutes = require('./routes/gestionEnchere/rappelRoutes');
 var salleEnchereRoutes = require('./routes/gestionEnchere/salleEnchereRoutes');
+var connectionRoutes = require('./routes/gestionEnchere/connectionRoutes');
 
 var optionsSwagger = require('./swagger.json');
 
@@ -58,6 +59,7 @@ app.use('/api/commentaires', commentaireRoutes);
 app.use('/api/feedbacks', feedbackRoutes);
 app.use('/api/rappels', rappelRoutes);
 app.use('/api/salleEncheres', salleEnchereRoutes);
+app.use('/api/connections', connectionRoutes);
 
 const specs = swaggerJsDoc(optionsSwagger);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
