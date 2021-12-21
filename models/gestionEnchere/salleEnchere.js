@@ -10,6 +10,10 @@ const SalleEnchereSchema = new Schema({
       ref: COLLECTIONS.LOTS,
     },
   ],
+  pas: {
+    type: Number,
+    required: false,
+  },
   dateOuverture: {
     type: Date,
     required: true,
@@ -21,7 +25,7 @@ const SalleEnchereSchema = new Schema({
   statut: {
     type: String,
     required: true,
-    enum: ['en_cours', 'termine'],
+    enum: ['pas_commence', 'en_cours', 'termine'],
   },
 });
 
