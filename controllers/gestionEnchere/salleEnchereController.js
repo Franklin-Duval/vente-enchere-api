@@ -4,8 +4,9 @@ const Produit = require('../../models/gestionProduit/produit');
 
 const mongoose = require('mongoose');
 
-exports.getAllSalleEnchere = (req, res, next) => {
+exports.getAllSalleEnchere = (req, res) => {
   SalleEnchere.find({})
+    .populate('lots')
     .then((salleEncheres) => {
       res.status(200).json({
         success: true,
@@ -23,8 +24,9 @@ exports.getAllSalleEnchere = (req, res, next) => {
     });
 };
 
-exports.getOneSalleEnchere = (req, res, next) => {
+exports.getOneSalleEnchere = (req, res) => {
   SalleEnchere.findOne({ _id: req.params.id })
+    .populate('lots')
     .then((salleEnchere) => {
       res.status(200).json({
         success: true,
@@ -42,12 +44,8 @@ exports.getOneSalleEnchere = (req, res, next) => {
     });
 };
 
-exports.createSalleEnchere = (req, res, next) => {
-  const salleEnchere = new SalleEnchere({
-    dateOuverture: req.body.dateOuverture,
-    duree: req.body.duree,
-    statut: req.body.statut,
-  });
+exports.createSalleEnchere = (req, res) => {
+  const salleEnchere = new SalleEnchere(req.body);
 
   salleEnchere
     .save()
@@ -68,7 +66,7 @@ exports.createSalleEnchere = (req, res, next) => {
     });
 };
 
-exports.getAllSalleEnchereByLot = (req, res, next) => {
+exports.getAllSalleEnchereByLot = (req, res) => {
   SalleEnchere.find({ lots: mongoose.Types.ObjectId(req.params.id) })
     .then((salleEncheres) => {
       res.status(200).json({
@@ -106,7 +104,7 @@ exports.updateOneSalleEnchere = (req, res) => {
     });
 };
 
-exports.deleteOneSalleEnchere = (req, res, next) => {
+exports.deleteOneSalleEnchere = (req, res) => {
   SalleEnchere.deleteOne({ _id: req.params.id })
     .then(() => {
       res.status(200).json({
@@ -123,7 +121,7 @@ exports.deleteOneSalleEnchere = (req, res, next) => {
     });
 };
 
-exports.getAllSalleEnchereBeforeSpecificDate = (req, res, next) => {
+exports.getAllSalleEnchereBeforeSpecificDate = (req, res) => {
   SalleEnchere.find({ dateOuverture: { $gte: Date(Date.now()) } })
     .then((salleEncheres) => {
       res.status(200).json({
@@ -142,7 +140,7 @@ exports.getAllSalleEnchereBeforeSpecificDate = (req, res, next) => {
     });
 };
 
-exports.getAllProduitsInSalleEnchere = async (req, res, next) => {
+exports.getAllProduitsInSalleEnchere = async (req, res) => {
   let arrayProduitsIDs = [];
 
   const salles = await SalleEnchere.findOne({ _id: req.params.id });
@@ -169,7 +167,7 @@ exports.getAllProduitsInSalleEnchere = async (req, res, next) => {
     });
 };
 
-exports.getSalleEnchereByProduitID = async (req, res, next) => {
+exports.getSalleEnchereByProduitID = async (req, res) => {
   const lotArrays = await Lot.find({
     produits: mongoose.Types.ObjectId(req.params.id),
   });
