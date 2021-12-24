@@ -68,6 +68,7 @@ exports.createSalleEnchere = (req, res) => {
 
 exports.getAllSalleEnchereByLot = (req, res) => {
   SalleEnchere.find({ lots: mongoose.Types.ObjectId(req.params.id) })
+    .populate('lots')
     .then((salleEncheres) => {
       res.status(200).json({
         success: true,
@@ -123,6 +124,7 @@ exports.deleteOneSalleEnchere = (req, res) => {
 
 exports.getAllSalleEnchereBeforeSpecificDate = (req, res) => {
   SalleEnchere.find({ dateOuverture: { $gte: Date(Date.now()) } })
+    .populate('lots')
     .then((salleEncheres) => {
       res.status(200).json({
         success: true,
@@ -175,6 +177,7 @@ exports.getSalleEnchereByProduitID = async (req, res) => {
   let lotID = lotArrays[0]._id;
 
   SalleEnchere.find({ lots: lotID })
+    .populate('lots')
     .then((salleEnchere) => {
       res.status(200).json({
         success: true,
