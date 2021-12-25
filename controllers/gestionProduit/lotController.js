@@ -107,7 +107,12 @@ exports.deleteOneLot = (req, res) => {
 exports.getAllLotByVendeur = (req, res, next) => {
   Lot.find({ vendeur: req.params.id })
     .populate('vendeur') // to show vendeur object in the json response
-    .populate('produits') // to show produits object in the json response
+    .populate({
+      path: 'produits',
+      populate: {
+        path: 'category',
+      },
+    }) // to show produits object in the json response
     .then((lots) => {
       res.status(200).json({
         success: true,
