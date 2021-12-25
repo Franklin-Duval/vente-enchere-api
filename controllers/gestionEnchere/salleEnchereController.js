@@ -6,7 +6,15 @@ const mongoose = require('mongoose');
 
 exports.getAllSalleEnchere = (req, res) => {
   SalleEnchere.find({})
-    .populate('lots')
+    .populate({
+      path: 'lots',
+      populate: {
+        path: 'produits',
+        populate: {
+          path: 'category',
+        },
+      },
+    })
     .then((salleEncheres) => {
       res.status(200).json({
         success: true,
@@ -124,7 +132,15 @@ exports.deleteOneSalleEnchere = (req, res) => {
 
 exports.getAllSalleEnchereBeforeSpecificDate = (req, res) => {
   SalleEnchere.find({ dateOuverture: { $gte: Date(Date.now()) } })
-    .populate('lots')
+    .populate({
+      path: 'lots',
+      populate: {
+        path: 'produits',
+        populate: {
+          path: 'category',
+        },
+      },
+    })
     .then((salleEncheres) => {
       res.status(200).json({
         success: true,
@@ -152,6 +168,7 @@ exports.getAllProduitsInSalleEnchere = async (req, res) => {
   arrayProduitsIDs = [].concat.apply([], arrayProduitsIDs);
 
   Produit.find({ _id: { $in: arrayProduitsIDs } })
+    .populate('category')
     .then((produits) => {
       res.status(200).json({
         success: true,
@@ -177,7 +194,15 @@ exports.getSalleEnchereByProduitID = async (req, res) => {
   let lotID = lotArrays[0]._id;
 
   SalleEnchere.find({ lots: lotID })
-    .populate('lots')
+    .populate({
+      path: 'lots',
+      populate: {
+        path: 'produits',
+        populate: {
+          path: 'category',
+        },
+      },
+    })
     .then((salleEnchere) => {
       res.status(200).json({
         success: true,
