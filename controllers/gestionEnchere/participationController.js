@@ -1,13 +1,12 @@
-const Connection = require('../../models/gestionEnchere/connection');
-const mongoose = require('mongoose');
+const Participation = require('../../models/gestionEnchere/participation');
 
-exports.getAllConnection = (req, res) => {
-  Connection.find({})
-    .then((connections) => {
+exports.getAllParticipation = (req, res) => {
+  Participation.find({})
+    .then((participations) => {
       res.status(200).json({
         success: true,
-        message: 'Les connections ont été récuppérés avec succès',
-        result: connections,
+        message: 'Les participations ont été récuppérés avec succès',
+        result: participations,
       });
     })
     .catch((error) => {
@@ -20,13 +19,13 @@ exports.getAllConnection = (req, res) => {
     });
 };
 
-exports.getOneConnection = (req, res) => {
-  Connection.findOne({ _id: req.params.id })
-    .then((connection) => {
+exports.getOneParticipation = (req, res) => {
+  Participation.findOne({ _id: req.params.id })
+    .then((participation) => {
       res.status(200).json({
         success: true,
-        message: 'La connection a été récuppéré avec succès',
-        result: connection,
+        message: 'La participation a été récuppéré avec succès',
+        result: participation,
       });
     })
     .catch((error) => {
@@ -39,19 +38,16 @@ exports.getOneConnection = (req, res) => {
     });
 };
 
-exports.createConnection = (req, res) => {
-  const connection = new Connection({
-    user: req.body.user,
-    salleEnchere: req.body.salleEnchere,
-  });
+exports.createParticipation = (req, res) => {
+  const participation = new Participation(req.body);
 
-  connection
+  participation
     .save()
     .then(() => {
       res.status(201).json({
         success: true,
-        message: 'La connection a été enregistré avec succès',
-        result: connection,
+        message: 'La participation a été enregistré avec succès',
+        result: participation,
       });
     })
     .catch((error) => {
@@ -64,13 +60,15 @@ exports.createConnection = (req, res) => {
     });
 };
 
-exports.updateOneConnection = (req, res) => {
-  Connection.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
-    .then((connection) => {
+exports.updateOneParticipation = (req, res) => {
+  Participation.findOneAndUpdate({ _id: req.params.id }, req.body, {
+    new: true,
+  })
+    .then((participation) => {
       res.status(200).json({
         success: true,
-        message: 'La connection a été modifié avec succès',
-        result: connection,
+        message: 'La participation a été modifié avec succès',
+        result: participation,
       });
     })
     .catch((error) => {
@@ -83,12 +81,12 @@ exports.updateOneConnection = (req, res) => {
     });
 };
 
-exports.deleteOneConnection = (req, res) => {
-  Connection.deleteOne({ _id: req.params.id })
+exports.deleteOneParticipation = (req, res) => {
+  Participation.deleteOne({ _id: req.params.id })
     .then(() => {
       res.status(200).json({
         success: true,
-        message: 'La connection a été supprimé avec succès',
+        message: 'La participation a été supprimé avec succès',
       });
     })
     .catch((error) => {

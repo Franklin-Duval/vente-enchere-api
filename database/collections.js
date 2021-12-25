@@ -12,7 +12,7 @@ const COLLECTIONS = {
   RAPPEL: 'rappel',
   SALLEENCHERE: 'salleenchere',
   COMMENTAIRE: 'commentaire',
-  CONNECTION: 'connection',
+  PARTICIPATION: 'participation',
 };
 
 module.exports = COLLECTIONS;
