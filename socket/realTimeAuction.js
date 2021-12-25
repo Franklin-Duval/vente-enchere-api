@@ -1,4 +1,7 @@
 const { Server } = require('socket.io');
+const User = require('../models/gestionCompte/user');
+const Participation = require('../models/gestionEnchere/participation');
+const { JoinRoom } = require('./controller');
 
 exports.RealTimeAuction = (httpServer) => {
   const io = new Server(httpServer, {
@@ -13,11 +16,8 @@ exports.RealTimeAuction = (httpServer) => {
     console.log(socket.rooms, '--1--');
 
     socket.on('join_room', async (data) => {
-      socket.join(data);
-      console.log(`--> User with ID: ${socket.id} joined room: ${data}`);
-
-      const num = await socket.in(data).allSockets();
-      io.to(data).emit('count_clients', [...num]);
+      let participants = await JoinRoom(socket, data);
+      io.to(data.room).emit('count_clients', participants);
     });
 
     socket.on('send_message', (data) => {
