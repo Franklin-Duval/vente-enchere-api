@@ -3,6 +3,8 @@ const User = require('../models/gestionCompte/user');
 const Participation = require('../models/gestionEnchere/participation');
 const { JoinRoom } = require('./controller');
 
+let currentBid = 0;
+
 exports.RealTimeAuction = (httpServer) => {
   const io = new Server(httpServer, {
     cors: {
@@ -10,14 +12,15 @@ exports.RealTimeAuction = (httpServer) => {
       methods: ['GET', 'POST'],
     },
   });
-
   io.on('connection', (socket) => {
     console.log(`User Connected: ${socket.id}`);
     console.log(socket.rooms, '--1--');
 
     socket.on('join_room', async (data) => {
+      currentBid += 1;
       let participants = await JoinRoom(socket, data);
       io.to(data.room).emit('count_clients', participants);
+      io.to(data.room).emit('send_bid', currentBid);
     });
 
     socket.on('send_message', (data) => {
