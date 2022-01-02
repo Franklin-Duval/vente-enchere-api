@@ -1,7 +1,7 @@
 const { Server } = require('socket.io');
 const { JoinRoom } = require('./controller');
 
-let currentBid = 0;
+let currentBid = {};
 let currentProduct = {};
 
 exports.RealTimeAuction = (httpServer) => {
@@ -21,7 +21,7 @@ exports.RealTimeAuction = (httpServer) => {
 
     socket.on('send_current_product', (data) => {
       currentProduct = data;
-      socket.to(data.room).emit('receive_current_product', data);
+      socket.to(data.room).emit('receive_current_product', currentProduct);
     });
 
     socket.on('send_current_bid', (data) => {
