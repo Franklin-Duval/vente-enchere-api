@@ -28,6 +28,8 @@ var rappelRoutes = require('./routes/gestionEnchere/rappelRoutes');
 var salleEnchereRoutes = require('./routes/gestionEnchere/salleEnchereRoutes');
 var participationRoutes = require('./routes/gestionEnchere/participationRoutes');
 
+var logRoutes = require('./routes/gestionLog/logRoutes');
+
 var optionsSwagger = require('./swagger.json');
 
 require('./strategies/local');
@@ -65,6 +67,7 @@ app.use('/api/feedbacks', feedbackRoutes);
 app.use('/api/rappels', rappelRoutes);
 app.use('/api/salleEncheres', salleEnchereRoutes);
 app.use('/api/participation', participationRoutes);
+app.use('/api/logs', logRoutes);
 
 const specs = swaggerJsDoc(optionsSwagger);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
