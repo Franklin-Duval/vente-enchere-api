@@ -16,6 +16,10 @@ const ParticipationSchema = new Schema({
     type: String,
     required: true,
   },
+  connected: {
+    type: Boolean,
+    default: true,
+  },
   date: {
     type: Date,
     default: Date.now(),
