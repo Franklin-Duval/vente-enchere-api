@@ -11,7 +11,13 @@ const MailJetService = require('../../services/mailjetService');
 
 const router = express.Router();
 
-router.post('/signin', async (req, res, next) => {
+const logMiddleware = require('../../controllers/gestionLog/logController');
+router.use((req, res, next) => {
+  req.table = 'USER-ATHENTIFICATION';
+  next();
+});
+
+router.post('/signin', logMiddleware.createLog, (req, res, next) => {
   passport.authenticate('signin', async (err, user, info) => {
     try {
       if (err || !user) {
@@ -74,7 +80,7 @@ router.post('/signin', async (req, res, next) => {
   })(req, res, next);
 });
 
-router.post('/signup/:person', async (req, res, next) => {
+router.post('/signup/:person', logMiddleware.createLog, (req, res, next) => {
   passport.authenticate('signup', async (err, user, info) => {
     try {
       if (err || !user) {

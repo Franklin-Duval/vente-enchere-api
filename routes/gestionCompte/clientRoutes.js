@@ -3,6 +3,12 @@ const router = express.Router();
 
 const clientCtrl = require('../../controllers/gestionCompte/clientController');
 
+const logMiddleware = require('../../controllers/gestionLog/logController');
+router.use((req, res, next) => {
+  req.table = 'CLIENTS';
+  next();
+});
+
 /**
  * @swagger
  * components:
@@ -116,7 +122,7 @@ router.get('/', clientCtrl.getAllClient);
  *       400:
  *         description: Une erreur s'est produite
  */
-router.post('/', clientCtrl.createClient);
+router.post('/', logMiddleware.createLog, clientCtrl.createClient);
 
 /**
  * @swagger
@@ -172,7 +178,7 @@ router.get('/:id', clientCtrl.getOneClient);
  *      400:
  *        description: Une erreur s'est produite
  */
-router.put('/:id', clientCtrl.updateOneClient);
+router.put('/:id', logMiddleware.createLog, clientCtrl.updateOneClient);
 
 /**
  * @swagger
@@ -194,6 +200,6 @@ router.put('/:id', clientCtrl.updateOneClient);
  *       400:
  *         description: Une erreur s'est produite
  */
-router.delete('/:id', clientCtrl.deleteOneClient);
+router.delete('/:id', logMiddleware.createLog, clientCtrl.deleteOneClient);
 
 module.exports = router;

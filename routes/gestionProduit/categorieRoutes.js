@@ -3,6 +3,12 @@ const router = express.Router();
 
 const categorieCtrl = require('../../controllers/gestionProduit/categorieController');
 
+const logMiddleware = require('../../controllers/gestionLog/logController');
+router.use((req, res, next) => {
+  req.table = 'CATEGORIES';
+  next();
+});
+
 /**
  * @swagger
  * components:
@@ -80,7 +86,7 @@ router.get('/', categorieCtrl.getAllCategorie);
  *       400:
  *         description: Une erreur s'est produite
  */
-router.post('/', categorieCtrl.createCategorie);
+router.post('/', logMiddleware.createLog, categorieCtrl.createCategorie);
 
 /**
  * @swagger
@@ -136,7 +142,7 @@ router.get('/:id', categorieCtrl.getOneCategorie);
  *      400:
  *        description: Une erreur s'est produite
  */
-router.put('/:id', categorieCtrl.updateOneCategorie);
+router.put('/:id', logMiddleware.createLog, categorieCtrl.updateOneCategorie);
 
 /**
  * @swagger
@@ -158,6 +164,10 @@ router.put('/:id', categorieCtrl.updateOneCategorie);
  *       400:
  *         description: Une erreur s'est produite
  */
-router.delete('/:id', categorieCtrl.deleteOneCategorie);
+router.delete(
+  '/:id',
+  logMiddleware.createLog,
+  categorieCtrl.deleteOneCategorie,
+);
 
 module.exports = router;

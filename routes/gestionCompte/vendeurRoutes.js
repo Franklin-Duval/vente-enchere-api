@@ -3,6 +3,12 @@ const router = express.Router();
 
 const vendeurCtrl = require('../../controllers/gestionCompte/vendeurController');
 
+const logMiddleware = require('../../controllers/gestionLog/logController');
+router.use((req, res, next) => {
+  req.table = 'VENDEURS';
+  next();
+});
+
 /**
  * @swagger
  * components:
@@ -85,7 +91,7 @@ router.get('/', vendeurCtrl.getAllVendeur);
  *       400:
  *         description: Une erreur s'est produite
  */
-router.post('/', vendeurCtrl.createVendeur);
+router.post('/', logMiddleware.createLog, vendeurCtrl.createVendeur);
 /**
  * @swagger
  * /api/vendeur/{id}:
@@ -139,7 +145,7 @@ router.get('/:id', vendeurCtrl.getOneVendeur);
  *      400:
  *        description: Une erreur s'est produite
  */
-router.put('/:id', vendeurCtrl.updateOneVendeur);
+router.put('/:id', logMiddleware.createLog, vendeurCtrl.updateOneVendeur);
 /**
  * @swagger
  * /api/vendeur/{id}:
@@ -160,6 +166,6 @@ router.put('/:id', vendeurCtrl.updateOneVendeur);
  *       400:
  *         description: Une erreur s'est produite
  */
-router.delete('/:id', vendeurCtrl.deleteOneVendeur);
+router.delete('/:id', logMiddleware.createLog, vendeurCtrl.deleteOneVendeur);
 
 module.exports = router;

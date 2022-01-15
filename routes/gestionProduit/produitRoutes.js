@@ -1,10 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
+const logMiddleware = require('../../controllers/gestionLog/logController');
+
 const imageMiddleware = require('../../middlewares/imageMiddleware');
 
 const produitCtrl = require('../../controllers/gestionProduit/produitController');
 
+router.use((req, res, next) => {
+  req.table = 'PRODUIT';
+  next();
+});
 /**
  * @swagger
  * components:
@@ -102,9 +108,14 @@ router.get('/', produitCtrl.getAllProduit);
  *       400:
  *         description: Une erreur s'est produite
  */
-router.post('/', produitCtrl.createProduit);
+router.post('/', logMiddleware.createLog, produitCtrl.createProduit);
 
-router.put('/images/:id', imageMiddleware, produitCtrl.addImagesProduit);
+router.put(
+  '/images/:id',
+  logMiddleware.createLog,
+  imageMiddleware,
+  produitCtrl.addImagesProduit,
+);
 
 /**
  * @swagger
@@ -161,7 +172,12 @@ router.get('/:id', produitCtrl.getOneProduit);
  *        description: Une erreur s'est produite
  */
 
-router.put('/:id', imageMiddleware, produitCtrl.updateOneProduit);
+router.put(
+  '/:id',
+  logMiddleware.createLog,
+  imageMiddleware,
+  produitCtrl.updateOneProduit,
+);
 
 /**
  * @swagger
@@ -183,7 +199,7 @@ router.put('/:id', imageMiddleware, produitCtrl.updateOneProduit);
  *       400:
  *         description: Une erreur s'est produite
  */
-router.delete('/:id', produitCtrl.deleteOneProduit);
+router.delete('/:id', logMiddleware.createLog, produitCtrl.deleteOneProduit);
 
 /**
  * @swagger

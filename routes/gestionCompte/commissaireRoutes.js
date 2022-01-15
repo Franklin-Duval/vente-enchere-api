@@ -2,6 +2,13 @@ const express = require('express');
 const router = express.Router();
 
 const commissaireCtrl = require('../../controllers/gestionCompte/commissaireController');
+
+const logMiddleware = require('../../controllers/gestionLog/logController');
+router.use((req, res, next) => {
+  req.table = 'COMMISSAIRE PRISEURS';
+  next();
+});
+
 /**
  * @swagger
  * components:
@@ -17,7 +24,7 @@ const commissaireCtrl = require('../../controllers/gestionCompte/commissaireCont
  *         user:
  *           type: string
  *           description: L'utilisateur auquel correspond le commissaire
- * 
+ *
  */
 /**
  * @swagger
@@ -67,7 +74,7 @@ router.get('/', commissaireCtrl.getAllCommissaire);
  *       400:
  *         description: Une erreur s'est produite
  */
-router.post('/', commissaireCtrl.createCommissaire);
+router.post('/', logMiddleware.createLog, commissaireCtrl.createCommissaire);
 /**
  * @swagger
  * /api/commissaires/{id}:
@@ -121,7 +128,11 @@ router.get('/:id', commissaireCtrl.getOneCommissaire);
  *      400:
  *        description: Une erreur s'est produite
  */
-router.put('/:id', commissaireCtrl.updateOneCommissaire);
+router.put(
+  '/:id',
+  logMiddleware.createLog,
+  commissaireCtrl.updateOneCommissaire,
+);
 /**
  * @swagger
  * /api/commissaires/{id}:
@@ -142,6 +153,10 @@ router.put('/:id', commissaireCtrl.updateOneCommissaire);
  *       400:
  *         description: Une erreur s'est produite
  */
-router.delete('/:id', commissaireCtrl.deleteOneCommissaire);
+router.delete(
+  '/:id',
+  logMiddleware.createLog,
+  commissaireCtrl.deleteOneCommissaire,
+);
 
 module.exports = router;
