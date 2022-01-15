@@ -226,4 +226,16 @@ router.delete('/:id', logMiddleware.createLog, produitCtrl.deleteOneProduit);
  */
 router.get('/vendeur/:id', produitCtrl.getAllProduitByVendeur);
 
+router.put(
+  '/favoris/ajout/:id/:userId',
+  logMiddleware,
+  produitCtrl.addFavorisProduit,
+);
+
+router.put(
+  '/favoris/delete/:id/:userId',
+  logMiddleware,
+  produitCtrl.removeFavorisProduit,
+);
+
 module.exports = router;
