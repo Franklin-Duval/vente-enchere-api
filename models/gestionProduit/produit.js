@@ -44,6 +44,12 @@ const ProduitSchema = new Schema({
     type: Boolean,
     required: true,
   },
+  favoris: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: COLLECTIONS.CLIENTS,
+    },
+  ],
   dateCreation: {
     type: Date,
     default: Date.now(),
