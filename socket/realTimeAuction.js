@@ -1,8 +1,11 @@
 const { Server } = require('socket.io');
-const { JoinRoom } = require('./controller');
-
-let currentBid = {};
-let currentProduct = {};
+const {
+  JoinRoom,
+  AddBid,
+  CurrentInfo,
+  NewProduct,
+  FinishProductAuction,
+} = require('./controller');
 
 exports.RealTimeAuction = (httpServer) => {
   const io = new Server(httpServer, {
@@ -15,26 +18,29 @@ exports.RealTimeAuction = (httpServer) => {
     socket.on('join_room', async (data) => {
       let participants = await JoinRoom(socket, data);
       io.to(data.room).emit('count_clients', participants);
-      io.to(data.room).emit('receive_current_bid', currentBid);
-      io.to(data.room).emit('receive_current_product', currentProduct);
+      const info = await CurrentInfo(data);
+      io.to(data.room).emit('receive_current_product', {
+        currentProduct: info.produit,
+        bid: info.bid,
+      });
     });
 
-    socket.on('send_current_product', (data) => {
-      currentProduct = data;
-      socket.to(data.room).emit('receive_current_product', currentProduct);
-    });
-
-    socket.on('send_current_bid', (data) => {
-      currentBid = data;
-      socket.to(data.room).emit('receive_current_bid', data);
+    socket.on('send_current_product', async (data) => {
+      //used by admin to send current product for bid
+      await FinishProductAuction(data);
+      await NewProduct(data);
+      socket.to(data.room).emit('receive_current_product', {
+        currentProduct: data.currentProduct,
+        bid: data.currentProduct.prixMin,
+      });
     });
 
     socket.on('send_message', (data) => {
       socket.to(data.room).emit('receive_message', data);
     });
 
-    socket.on('send_bid', (data) => {
-      currentBid = data;
+    socket.on('send_bid', async (data) => {
+      await AddBid(data);
       socket.to(data.room).emit('receive_bid', data);
     });
 
