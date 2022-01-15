@@ -29,18 +29,10 @@ exports.createLog = (req, res, next) => {
   log
     .save()
     .then(() => {
-      res.status(201).json({
-        sucess: true,
-        message: 'Le log a été enregistré avec succès',
-        result: log,
-      });
+      next();
     })
     .catch((error) => {
       console.log(error);
-      res.status(500).json({
-        succes: false,
-        message: "Une erreur s'est produite",
-        result: undefined,
-      });
+      next();
     });
 };
