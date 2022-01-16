@@ -16,6 +16,10 @@ const ParticipationSchema = new Schema({
     type: String,
     required: true,
   },
+  socket: {
+    type: String,
+    required: false,
+  },
   connected: {
     type: Boolean,
     default: true,
