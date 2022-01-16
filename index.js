@@ -13,6 +13,7 @@ var imageRoutes = require('./routes/imagesRoutes');
 var categorieRoutes = require('./routes/gestionProduit/categorieRoutes');
 var lotRoutes = require('./routes/gestionProduit/lotRoutes');
 var produitRoutes = require('./routes/gestionProduit/produitRoutes');
+var eventRoutes = require('./routes/gestionProduit/eventRoutes');
 
 var userRoutes = require('./routes/gestionCompte/userRoutes');
 var commissaireRoutes = require('./routes/gestionCompte/commissaireRoutes');
@@ -68,6 +69,7 @@ app.use('/api/rappels', rappelRoutes);
 app.use('/api/salleEncheres', salleEnchereRoutes);
 app.use('/api/participation', participationRoutes);
 app.use('/api/logs', logRoutes);
+app.use('/api/events', eventRoutes);
 
 const specs = swaggerJsDoc(optionsSwagger);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));

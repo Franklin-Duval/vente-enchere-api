@@ -14,6 +14,7 @@ const COLLECTIONS = {
   COMMENTAIRE: 'commentaire',
   PARTICIPATION: 'participation',
   LOGS: 'logs',
+  EVENTS: 'events',
 };
 
 module.exports = COLLECTIONS;
