@@ -112,6 +112,7 @@ router.post('/signup/:person', async (req, res, next) => {
         email: newUser.email,
         roles: newUser.roles,
         compte: compte._id,
+        user: newUser._id,
         token: undefined,
       };
 
