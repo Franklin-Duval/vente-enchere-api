@@ -5,6 +5,7 @@ const {
   CurrentInfo,
   NewProduct,
   FinishProductAuction,
+  ExitRoom,
 } = require('./controller');
 
 exports.RealTimeAuction = (httpServer) => {
@@ -45,6 +46,13 @@ exports.RealTimeAuction = (httpServer) => {
     });
 
     socket.on('disconnect', async () => {
+      let participants = await ExitRoom(socket);
+      if (participants) {
+        io.to(participants[0].salleEnchere.toString()).emit(
+          'count_clients',
+          participants,
+        );
+      }
       console.log('User Disconnected', socket.id);
     });
   });
