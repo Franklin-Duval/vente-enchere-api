@@ -10,14 +10,19 @@ exports.JoinRoom = async (socket, data) => {
     username: data.username,
   });
   if (!participantExist) {
-    const partipant = new Participation({
+    const participant = new Participation({
       salleEnchere: data.salleEnchere,
       username: data.username,
       date: data.date,
       user: user?._id,
+      socket: socket.id,
       connected: true,
     });
-    partipant.save();
+    await participant.save();
+  } else {
+    participantExist.connected = true;
+    participantExist.socket = socket.id;
+    await participantExist.save();
   }
 
   //create socket room
@@ -26,6 +31,7 @@ exports.JoinRoom = async (socket, data) => {
 
   return await Participation.find({
     salleEnchere: data.salleEnchere,
+    connected: true,
   });
 };
 
@@ -77,4 +83,19 @@ exports.FinishProductAuction = async (data) => {
     });
     salle.save();
   }
+};
+
+exports.ExitRoom = async (socket) => {
+  const participant = await Participation.findOne({ socket: socket.id });
+  if (participant) {
+    participant.socket = '';
+    participant.connected = false;
+    await participant.save();
+
+    return await Participation.find({
+      salleEnchere: participant.salleEnchere,
+      connected: true,
+    });
+  }
+  return null;
 };
