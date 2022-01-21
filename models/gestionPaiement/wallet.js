@@ -12,6 +12,7 @@ const WalletSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: COLLECTIONS.USERS,
     required: true,
+    unique: true,
   },
 });
 
