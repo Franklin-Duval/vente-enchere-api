@@ -29,6 +29,9 @@ var rappelRoutes = require('./routes/gestionEnchere/rappelRoutes');
 var salleEnchereRoutes = require('./routes/gestionEnchere/salleEnchereRoutes');
 var participationRoutes = require('./routes/gestionEnchere/participationRoutes');
 
+var walletRoutes = require('./routes/gestionPaiement/walletRoutes');
+var transactionRoutes = require('./routes/gestionPaiement/transactionRoutes');
+
 var logRoutes = require('./routes/gestionLog/logRoutes');
 
 var optionsSwagger = require('./swagger.json');
@@ -70,6 +73,8 @@ app.use('/api/salleEncheres', salleEnchereRoutes);
 app.use('/api/participation', participationRoutes);
 app.use('/api/logs', logRoutes);
 app.use('/api/events', eventRoutes);
+app.use('/api/wallets', walletRoutes);
+app.use('/api/transactions', transactionRoutes);
 
 const specs = swaggerJsDoc(optionsSwagger);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
