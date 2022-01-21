@@ -101,91 +101,52 @@ exports.addImagesProduit = (req, res) => {
     });
 };
 
-exports.addFavorisProduit = (req, res) => {
-  Produit.findOne({ _id: req.params.id })
-    .then((produit) => {
-      fav = produit['favoris'];
-      fav.push(req.params.userId);
-      produit['favoris'] = fav;
-      const prod = new Produit({
-        nom: produit.nom,
-        description: produit.description,
-        prixMin: produit.prixMin,
-        vendeur: produit.vendeur,
-        category: produit.category,
-        quantite: produit.quantite,
-        estBio: produit.estBio,
-        favoris: fav,
-      });
-      Produit.updateOne({ _id: req.params.id }, prod)
-        .then(() => {
-          res.status(200).json({
-            success: true,
-            message: 'Le favoris a été ajouté avec succès',
-            result: prod,
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-          res.status(500).json({
-            success: false,
-            message: "Une erreur s'est produite",
-            result: undefined,
-          });
-        });
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(500).json({
-        success: false,
-        message: "Une erreur s'est produite pour trouver le produit",
-        result: undefined,
-      });
+exports.addFavorisProduit = async (req, res) => {
+  try {
+    const produit = await Produit.findOne({ _id: req.params.id });
+    if (!produit.favoris.includes(req.params.userId)) {
+      produit.favoris?.push(req.params.userId);
+      produit.save();
+    }
+    res.status(200).json({
+      success: true,
+      message: 'Le favoris a été ajouté avec succès',
+      result: produit,
     });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Une erreur s'est produite",
+      result: undefined,
+    });
+  }
 };
 
 ///Modifier cette partie
-exports.removeFavorisProduit = (req, res) => {
-  Produit.findOne({ _id: req.params.id })
-    .then((produit) => {
-      fav = produit['favoris'];
-      fav = fav.find((element) => element != req.params.userId);
-      produit['favoris'] = fav;
-      const prod = new Produit({
-        nom: produit.nom,
-        description: produit.description,
-        prixMin: produit.prixMin,
-        vendeur: produit.vendeur,
-        category: produit.category,
-        quantite: produit.quantite,
-        estBio: produit.estBio,
-        favoris: fav,
+exports.removeFavorisProduit = async (req, res) => {
+  try {
+    const produit = await Produit.findOne({ _id: req.params.id });
+    if (produit.favoris.includes(req.params.userId)) {
+      produit.favoris = produit.favoris.filter((userId) => {
+        console.log(userId);
+        return userId.toString() !== req.params.userId;
       });
-      Produit.updateOne({ _id: req.params.id }, prod)
-        .then(() => {
-          res.status(200).json({
-            success: true,
-            message: 'Le favoris a été ajouté avec succès',
-            result: prod,
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-          res.status(500).json({
-            success: false,
-            message: "Une erreur s'est produite",
-            result: undefined,
-          });
-        });
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(500).json({
-        success: false,
-        message: "Une erreur s'est produite pour trouver le produit",
-        result: undefined,
-      });
+      produit.save();
+    }
+    res.status(200).json({
+      success: true,
+      message: 'Le favoris a été ajouté avec succès',
+      result: produit,
     });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Une erreur s'est produite",
+      result: undefined,
+    });
+  }
 };
 
 exports.updateOneProduit = (req, res) => {

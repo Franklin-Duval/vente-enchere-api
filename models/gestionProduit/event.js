@@ -48,14 +48,6 @@ const EventSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
-  dateModification: {
-    type: Date,
-    required: false,
-  },
-  dateSuppression: {
-    type: Date,
-    required: false,
-  },
 });
 
 const Event = mongoose.model(COLLECTIONS.EVENTS, EventSchema);
