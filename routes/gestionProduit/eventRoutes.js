@@ -5,7 +5,7 @@ const logMiddleware = require('../../controllers/gestionLog/logController');
 
 const imageMiddleware = require('../../middlewares/imageMiddleware');
 
-const eventCtrl = require('../../controllers/gestionEvent/eventController');
+const eventCtrl = require('../../controllers/gestionProduit/eventController');
 
 router.use((req, res, next) => {
   req.table = 'EVENEMENT';

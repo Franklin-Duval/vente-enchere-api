@@ -228,13 +228,13 @@ router.get('/vendeur/:id', produitCtrl.getAllProduitByVendeur);
 
 router.put(
   '/favoris/ajout/:id/:userId',
-  logMiddleware,
+  logMiddleware.createLog,
   produitCtrl.addFavorisProduit,
 );
 
 router.put(
   '/favoris/delete/:id/:userId',
-  logMiddleware,
+  logMiddleware.createLog,
   produitCtrl.removeFavorisProduit,
 );
 
