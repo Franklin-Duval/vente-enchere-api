@@ -47,7 +47,7 @@ const ProduitSchema = new Schema({
   favoris: [
     {
       type: Schema.Types.ObjectId,
-      ref: COLLECTIONS.CLIENTS,
+      ref: COLLECTIONS.USERS,
     },
   ],
   dateCreation: {
