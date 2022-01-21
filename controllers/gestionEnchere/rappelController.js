@@ -1,6 +1,6 @@
 const Rappel = require('../../models/gestionEnchere/rappel');
 
-exports.getAllRappel = (req, res, next) => {
+exports.getAllRappel = (req, res) => {
   Rappel.find({})
     .then((rappels) => {
       res.status(200).json({
@@ -19,7 +19,7 @@ exports.getAllRappel = (req, res, next) => {
     });
 };
 
-exports.getOneRappel = (req, res, next) => {
+exports.getOneRappel = (req, res) => {
   Rappel.findOne({ _id: req.params.id })
     .then((rappel) => {
       res.status(200).json({
@@ -38,7 +38,7 @@ exports.getOneRappel = (req, res, next) => {
     });
 };
 
-exports.createRappel = (req, res, next) => {
+exports.createRappel = (req, res) => {
   const rappel = new Rappel({
     dateAjout: req.body.dateAjout,
     produit: req.body.produit,
@@ -83,7 +83,7 @@ exports.updateOneRappel = (req, res) => {
     });
 };
 
-exports.deleteOneRappel = (req, res, next) => {
+exports.deleteOneRappel = (req, res) => {
   Rappel.deleteOne({ _id: req.params.id })
     .then(() => {
       res.status(200).json({
