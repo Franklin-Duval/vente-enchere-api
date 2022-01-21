@@ -3,6 +3,12 @@ const router = express.Router();
 
 const userCtrl = require('../../controllers/gestionCompte/userController');
 
+const logMiddleware = require('../../controllers/gestionLog/logController');
+router.use((req, res, next) => {
+  req.table = 'USERS';
+  next();
+});
+
 /**
  * @swagger
  * components:
@@ -62,7 +68,7 @@ const userCtrl = require('../../controllers/gestionCompte/userController');
  *            description: Le numero mobile money de l'utilisateur
  *          compte:
  *            type: Schema.Types.ObjectId
- *            items: 
+ *            items:
  *                type: string
  *                description: Collection contenant les comptes de l'utilisateur
  *          dateAjout:
@@ -120,7 +126,7 @@ router.get('/', userCtrl.getAllUser);
  *       400:
  *         description: Une erreur s'est produite
  */
-router.post('/', userCtrl.createUser);
+router.post('/', logMiddleware.createLog, userCtrl.createUser);
 /**
  * @swagger
  * /api/users/{id}:
@@ -174,7 +180,7 @@ router.get('/:id', userCtrl.getOneUser);
  *      400:
  *        description: Une erreur s'est produite
  */
-router.put('/:id', userCtrl.updateOneUser);
+router.put('/:id', logMiddleware.createLog, userCtrl.updateOneUser);
 /**
  * @swagger
  * /api/users/{id}:
@@ -195,6 +201,6 @@ router.put('/:id', userCtrl.updateOneUser);
  *       400:
  *         description: Une erreur s'est produite
  */
-router.delete('/:id', userCtrl.deleteOneUser);
+router.delete('/:id', logMiddleware.createLog, userCtrl.deleteOneUser);
 
 module.exports = router;

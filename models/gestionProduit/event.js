@@ -3,17 +3,13 @@ const COLLECTIONS = require('../../database/collections');
 
 const Schema = mongoose.Schema;
 
-const ProduitSchema = new Schema({
+const EventSchema = new Schema({
   nom: {
     type: String,
     required: true,
   },
   description: {
     type: String,
-    required: false,
-  },
-  prixMin: {
-    type: Number,
     required: false,
   },
   quantite: {
@@ -25,6 +21,10 @@ const ProduitSchema = new Schema({
       type: String,
       required: true,
     },
+  },
+  periode: {
+    type: String,
+    required: true,
   },
   vendeur: {
     type: Schema.Types.ObjectId,
@@ -44,12 +44,6 @@ const ProduitSchema = new Schema({
     type: Boolean,
     required: true,
   },
-  favoris: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: COLLECTIONS.CLIENTS,
-    },
-  ],
   dateCreation: {
     type: Date,
     default: Date.now(),
@@ -64,6 +58,6 @@ const ProduitSchema = new Schema({
   },
 });
 
-const Produit = mongoose.model(COLLECTIONS.PRODUITS, ProduitSchema);
+const Event = mongoose.model(COLLECTIONS.EVENTS, EventSchema);
 
-module.exports = Produit;
+module.exports = Event;

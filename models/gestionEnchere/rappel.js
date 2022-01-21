@@ -8,14 +8,14 @@ const RappelSchema = new Schema({
     type: Date,
     required: true,
   },
-  salleEnchere: {
+  produit: {
     type: Schema.Types.ObjectId,
-    ref: COLLECTIONS.SALLEENCHERE,
+    ref: COLLECTIONS.PRODUITS,
     required: true,
   },
-  client: {
+  user: {
     type: Schema.Types.ObjectId,
-    ref: COLLECTIONS.CLIENTS,
+    ref: COLLECTIONS.USERS,
     required: true,
   },
 });

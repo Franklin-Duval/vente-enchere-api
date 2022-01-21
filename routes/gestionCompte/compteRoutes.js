@@ -3,6 +3,12 @@ const router = express.Router();
 
 const compteCtrl = require('../../controllers/gestionCompte/compteController');
 
+const logMiddleware = require('../../controllers/gestionLog/logController');
+router.use((req, res, next) => {
+  req.table = 'COMPTES';
+  next();
+});
+
 /**
  * @swagger
  * components:
@@ -72,7 +78,7 @@ router.get('/', compteCtrl.getAllCompte);
  *       400:
  *         description: Une erreur s'est produite
  */
-router.post('/', compteCtrl.createCompte);
+router.post('/', logMiddleware.createLog, compteCtrl.createCompte);
 /**
  * @swagger
  * /api/comptes/{id}:
@@ -127,7 +133,7 @@ router.get('/:id', compteCtrl.getOneCompte);
  *        description: Une erreur s'est produite
  */
 
-router.put('/:id', compteCtrl.updateOneCompte);
+router.put('/:id', logMiddleware.createLog, compteCtrl.updateOneCompte);
 /**
  * @swagger
  * /api/comptes/activate-compte/{id}:
@@ -181,7 +187,11 @@ router.get('/activate-compte/:id', compteCtrl.activateCompte);
  *      400:
  *        description: Une erreur s'est produite
  */
-router.put('/change-password/:id', compteCtrl.changePassword);
+router.put(
+  '/change-password/:id',
+  logMiddleware.createLog,
+  compteCtrl.changePassword,
+);
 /**
  * @swagger
  * /api/comptes/{id}:
@@ -202,6 +212,6 @@ router.put('/change-password/:id', compteCtrl.changePassword);
  *       400:
  *         description: Une erreur s'est produite
  */
-router.delete('/:id', compteCtrl.deleteOneCompte);
+router.delete('/:id', logMiddleware.createLog, compteCtrl.deleteOneCompte);
 
 module.exports = router;

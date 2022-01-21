@@ -2,6 +2,13 @@ const express = require('express');
 const router = express.Router();
 
 const gerantCtrl = require('../../controllers/gestionCompte/gerantController');
+
+const logMiddleware = require('../../controllers/gestionLog/logController');
+router.use((req, res, next) => {
+  req.table = 'GÉRANTS';
+  next();
+});
+
 /**
  * @swagger
  * components:
@@ -67,7 +74,7 @@ router.get('/', gerantCtrl.getAllGerant);
  *       400:
  *         description: Une erreur s'est produite
  */
-router.post('/', gerantCtrl.createGerant);
+router.post('/', logMiddleware.createLog, gerantCtrl.createGerant);
 /**
  * @swagger
  * /api/gerant/{id}:
@@ -121,7 +128,7 @@ router.get('/:id', gerantCtrl.getOneGerant);
  *      400:
  *        description: Une erreur s'est produite
  */
-router.put('/:id', gerantCtrl.updateOneGerant);
+router.put('/:id', logMiddleware.createLog, gerantCtrl.updateOneGerant);
 /**
  * @swagger
  * /api/gerant/{id}:
@@ -142,6 +149,6 @@ router.put('/:id', gerantCtrl.updateOneGerant);
  *       400:
  *         description: Une erreur s'est produite
  */
-router.delete('/:id', gerantCtrl.deleteOneGerant);
+router.delete('/:id', logMiddleware.createLog, gerantCtrl.deleteOneGerant);
 
 module.exports = router;

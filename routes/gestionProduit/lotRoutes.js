@@ -2,6 +2,11 @@ const express = require('express');
 const router = express.Router();
 
 const lotCtrl = require('../../controllers/gestionProduit/lotController');
+const logMiddleware = require('../../controllers/gestionLog/logController');
+router.use((req, res, next) => {
+  req.table = 'LOTS';
+  next();
+});
 
 /**
  * @swagger
@@ -100,7 +105,7 @@ router.get('/', lotCtrl.getAllLot);
  *       400:
  *         description: Une erreur s'est produite
  */
-router.post('/', lotCtrl.createLot);
+router.post('/', logMiddleware.createLog, lotCtrl.createLot);
 
 /**
  * @swagger
@@ -156,7 +161,7 @@ router.get('/:id', lotCtrl.getOneLot);
  *      400:
  *        description: Une erreur s'est produite
  */
-router.put('/:id', lotCtrl.updateOneLot);
+router.put('/:id', logMiddleware.createLog, lotCtrl.updateOneLot);
 
 /**
  * @swagger
@@ -178,7 +183,7 @@ router.put('/:id', lotCtrl.updateOneLot);
  *       400:
  *         description: Une erreur s'est produite
  */
-router.delete('/:id', lotCtrl.deleteOneLot);
+router.delete('/:id', logMiddleware.createLog, lotCtrl.deleteOneLot);
 
 /**
  * @swagger

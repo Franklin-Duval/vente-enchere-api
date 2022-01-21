@@ -13,6 +13,8 @@ const COLLECTIONS = {
   SALLEENCHERE: 'salleenchere',
   COMMENTAIRE: 'commentaire',
   PARTICIPATION: 'participation',
+  LOGS: 'logs',
+  EVENTS: 'events',
 };
 
 module.exports = COLLECTIONS;

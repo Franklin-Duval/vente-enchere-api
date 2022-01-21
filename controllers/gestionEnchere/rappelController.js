@@ -41,8 +41,8 @@ exports.getOneRappel = (req, res, next) => {
 exports.createRappel = (req, res, next) => {
   const rappel = new Rappel({
     dateAjout: req.body.dateAjout,
-    salleEnchere: req.body.salleEnchere,
-    client: req.body.client,
+    produit: req.body.produit,
+    user: req.body.user,
   });
 
   rappel
