@@ -1,5 +1,5 @@
-const Event = require('../../models/gestionEvent/event');
-const Lot = require('../../models/gestionEvent/lot');
+const Event = require('../../models/gestionProduit/event');
+const Lot = require('../../models/gestionProduit/lot');
 
 exports.getAllEvent = (req, res) => {
   Event.find({})
