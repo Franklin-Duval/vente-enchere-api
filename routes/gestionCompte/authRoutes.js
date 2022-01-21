@@ -30,6 +30,7 @@ router.post('/signin', async (req, res, next) => {
         email: user.email,
         roles: user.roles,
         compte: user.compte,
+        user: user._id,
         token: undefined,
       };
 
