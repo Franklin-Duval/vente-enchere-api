@@ -15,6 +15,8 @@ const COLLECTIONS = {
   PARTICIPATION: 'participation',
   LOGS: 'logs',
   EVENTS: 'events',
+  TRANSACTION: 'transaction',
+  WALLET: 'wallet',
 };
 
 module.exports = COLLECTIONS;
