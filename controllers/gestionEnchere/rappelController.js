@@ -2,6 +2,8 @@ const Rappel = require('../../models/gestionEnchere/rappel');
 
 exports.getAllRappel = (req, res) => {
   Rappel.find({})
+    .populate('produit')
+    .populate('user')
     .then((rappels) => {
       res.status(200).json({
         success: true,
@@ -21,6 +23,8 @@ exports.getAllRappel = (req, res) => {
 
 exports.getOneRappel = (req, res) => {
   Rappel.findOne({ _id: req.params.id })
+    .populate('produit')
+    .populate('user')
     .then((rappel) => {
       res.status(200).json({
         success: true,
