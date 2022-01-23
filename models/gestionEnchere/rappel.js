@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const RappelSchema = new Schema({
   dateAjout: {
     type: Date,
-    required: true,
+    default: Date.now(),
   },
   produit: {
     type: Schema.Types.ObjectId,
