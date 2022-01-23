@@ -129,14 +129,13 @@ exports.removeFavorisProduit = async (req, res) => {
     const produit = await Produit.findOne({ _id: req.params.id });
     if (produit.favoris.includes(req.params.userId)) {
       produit.favoris = produit.favoris.filter((userId) => {
-        console.log(userId);
         return userId.toString() !== req.params.userId;
       });
       produit.save();
     }
     res.status(200).json({
       success: true,
-      message: 'Le favoris a été ajouté avec succès',
+      message: 'Le favoris a été retiré avec succès',
       result: produit,
     });
   } catch (error) {
